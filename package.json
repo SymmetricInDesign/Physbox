@@ -7,7 +7,7 @@
     "defaults"
   ],
   "scripts": {
-    "watch": "webpack --watch --mode=development",
+    "start": "webpack --watch --mode=development",
     "build": "webpack --mode=production"
   },
   "repository": {
@@ -26,8 +26,10 @@
     "@babel/preset-env": "^7.14.8",
     "babel-loader": "^8.2.2",
     "core-js": "^3.15.2",
+    "crypto": "^1.0.1",
     "css-loader": "^6.2.0",
     "mini-css-extract-plugin": "^2.1.0",
+    "paper": "^0.12.15",
     "regenerator-runtime": "^0.13.9",
     "sass": "^1.36.0",
     "sass-loader": "^12.1.0",
