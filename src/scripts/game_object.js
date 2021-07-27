@@ -11,6 +11,7 @@ class GameObject{
         this.path = path
         this.mass = mass
         this.velocity = initialVelocity
+        // this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
         this.constantForces = {
             gravity: new Force(0, gravitationalAcc * mass),
         }
@@ -42,6 +43,7 @@ class GameObject{
         }
     }
     updateYPos(deltaT, pixelScale){
+        console.log(this.velocity.y)
             if (this.path.position.y + this.path.bounds.height/2 < this.game.groundYPos || this.velocity.y < 0){
                 this.path.position.y += (this.velocity.y * pixelScale * deltaT)
             }else{
@@ -59,6 +61,7 @@ class GameObject{
 
     updateVelocity(deltaT){
         this.velocity.add(this.acceleration, deltaT)
+        this.momentum = this.velocity * this.mass
     }
 
     updateAcceleration(){
@@ -82,14 +85,13 @@ class GameObject{
             sumXForces += force.x;
             sumYForces += force.y
         })
-        // if (this.path.position.y + this.path.bounds.height/2 >= this.game.groundYPos){
-        //     if (this.velocity.x > 0){
-        //         sumXForces -= this.conditionalForces.frictionKinetic
-        //     } else{
-        //         sumXForces += this.conditionalForces.frictionKinetic 
-
-        //     }
-        // }
+        if (this.path.position.y + this.path.bounds.height/2 >= this.game.groundYPos){
+            if (this.velocity.x > 0){
+                sumXForces -= this.conditionalForces.frictionKinetic.x
+            } else if (this.velocity.x < 0){
+                sumXForces += this.conditionalForces.frictionKinetic.x
+            }
+        }
         return new Force(sumXForces, sumYForces)
     }
 
@@ -97,6 +99,26 @@ class GameObject{
         const start = [this.path.position.x, this.path.position.y]
         const end = [gameObject.path.position.x, gameObject.path.position.y]
         return Math.sqrt((end[0]-start[0])**2 + (end[1] - start[1])**2)
+    }
+
+    collideWith(gameObject, collisionAngle){
+        if (collisionAngle = Math.PI / 2){
+            this.setCollisionVelocities(gameObject, 'x')
+        }else if (collisionAngle = 0){
+            this.setCollisionVelocities(gameObject, 'y')
+        }      
+    }
+    setCollisionVelocities(gameObject, axis){
+        // equations for resulting velocities from perfectly elastic collision with at 0 angle.
+        const initialVelocity = this.velocity
+        this.velocity[axis] = 
+            (this.mass-gameObject.mass)/(this.mass+gameObject.mass)*initialVelocity[axis]
+            + 
+            (2 * gameObject.velocity[axis] * gameObject.mass) / (this.mass + gameObject.mass)
+        gameObject.velocity[axis] = 
+            (2 * initialVelocity[axis] * this.mass) / (this.mass + gameObject.mass)
+            - 
+            (this.mass-gameObject.mass)/(this.mass+gameObject.mass) * gameObject.velocity[axis]
     }
 }
 
