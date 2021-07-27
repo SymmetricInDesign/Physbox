@@ -4,7 +4,6 @@ import GameObject from "./game_object"
 
 class Display {
     constructor(game){
-        this.objects = {}
         this.setupCanvas()
         this.game = game
     }
@@ -18,15 +17,15 @@ class Display {
         let tool = new Tool();
         
         tool.onMouseDown = function(event) {
-            let exists = Object.values(this.objects).some(object=> object.path.contains(event.point))
+            let exists = Object.values(this.game.gameObjects).some(object=> object.path.contains(event.point))
             if (!exists){
                 console.log(event.point)
                 let path = new Path.Rectangle(event.point, [10, 10]);
                 path.fillColor = 'green';
                 console.log(path.position.x)
                 let gameObject = new GameObject(this.game, path, 5)
-                this.objects[path.id] = gameObject
-                console.log(this.objects)
+                this.game.gameObjects[path.id] = gameObject
+                console.log(this.game.gameObjects)
             }
         }.bind(this)
     }

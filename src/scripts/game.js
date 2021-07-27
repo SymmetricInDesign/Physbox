@@ -12,6 +12,7 @@ class Game {
             gravitationalAcc: 9.807, 
             groundFriction:{static: 0.3, kinetic: 0.2}
         }
+        this.gameObjects = {}
     }
 
     update(){
@@ -23,7 +24,7 @@ class Game {
         }
         if (this.lastFrameTime){
             let currentTime = performance.now()
-            Object.values(this.display.objects).forEach(object=>{
+            Object.values(this.gameObjects).forEach(object=>{
                 let deltaT = (currentTime - this.lastFrameTime) / 1000
                 // console.log(deltaT)
                 if (deltaT < 0.5){
