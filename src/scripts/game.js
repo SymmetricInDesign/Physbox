@@ -20,7 +20,7 @@ class Game {
             let currentTime = performance.now()
             Object.values(this.display.objects).forEach(object=>{
                 let deltaT = (currentTime - this.lastFrameTime) / 1000
-                console.log(deltaT)
+                // console.log(deltaT)
                 if (deltaT < 0.5){
 
                     object.update(deltaT)
