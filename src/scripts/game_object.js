@@ -15,13 +15,22 @@ class GameObject{
 
     updatePos(deltaT, pixelScale){
         //pixelscale is the number of pixels equal to a meter, to work with STI units.
-        // console.log(deltaT)
-        // debugger
-        this.path.position = new Point(
-            this.path.position.x + (this.velocity.x * pixelScale * deltaT),
-            this.path.position.y + (this.velocity.y * pixelScale * deltaT)
-            )
-            // console.log(this.velocity)
+        if (this.velocity.x != 0 || this.velocity.y != 0){
+            if (this.path.position.y + this.path.bounds.height/2 < 800 || this.velocity.y < 0){
+                this.path.position = new Point(
+                    this.path.position.x + (this.velocity.x * pixelScale * deltaT),
+                    this.path.position.y + (this.velocity.y * pixelScale * deltaT)
+                    )
+            }else{
+                if (this.velocity.y > 0.2){
+                    this.velocity = new Velocity(this.velocity.x, this.velocity.y*-0.3)
+                }else{
+                    this.velocity = new Velocity(this.velocity.x,0)
+                    this.path.position = new Point(this.path.position.x, 800-this.path.bounds.height/2)
+                    this.yStopped=true
+                }
+            }
+        }
     }
 
     updateVelocity(deltaT){
