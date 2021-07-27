@@ -2,11 +2,16 @@ import Display from "./display";
 
 class Game {
     constructor(){  
-        this.display = new Display()
         this.framecount = 0
-        this.display.view.onFrame = this.update.bind(this)
         this.t1=performance.now()
         this.lastFrameTime = null
+        this.display = new Display(this)
+        this.display.view.onFrame = this.update.bind(this)
+        this.groundYPos = 800
+        this.envProperties = {
+            gravitationalAcc: 9.807, 
+            groundFriction:{static: 0.3, kinetic: 0.2}
+        }
     }
 
     update(){
