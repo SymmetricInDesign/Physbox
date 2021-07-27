@@ -3,9 +3,10 @@ const paper = require("paper")
 import GameObject from "./game_object"
 
 class Display {
-    constructor(){
+    constructor(game){
         this.objects = {}
         this.setupCanvas()
+        this.game = game
     }
 
     setupCanvas(){
@@ -20,19 +21,19 @@ class Display {
             let exists = Object.values(this.objects).some(object=> object.path.contains(event.point))
             if (!exists){
                 console.log(event.point)
-                let path = new Path.Rectangle(event.point, [40, 40]);
+                let path = new Path.Rectangle(event.point, [10, 10]);
                 path.fillColor = 'green';
                 console.log(path.position.x)
-                // path.onMouseUp = (event) => {
-                //     delete this.objects[path.id]
-                //     path.remove()
-                // }
-                let gameObject = new GameObject(path, 5)
+                let gameObject = new GameObject(this.game, path, 5)
                 this.objects[path.id] = gameObject
                 console.log(this.objects)
             }
         }.bind(this)
     }
+                    // path.onMouseUp = (event) => {
+                //     delete this.objects[path.id]
+                //     path.remove()
+                // }
     
 }
 
