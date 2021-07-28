@@ -7,6 +7,7 @@ class Acceleration {
     update(force, mass){
         this.x = force.x / mass, 
         this.y = force.y / mass
+        return this
     }
 } 
 

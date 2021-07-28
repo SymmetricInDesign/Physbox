@@ -10,7 +10,7 @@ class Game {
         this.groundYPos = 800
         this.envProperties = {
             gravitationalAcc: 9.807, 
-            groundFriction:{static: 0.3, kinetic: 0.2}
+            groundFriction:{static: 0.4, kinetic: 0.3}
         }
         this.gameObjects = {}
     }
