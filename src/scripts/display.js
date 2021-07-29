@@ -1,6 +1,8 @@
 
 const paper = require("paper")
 import GameObject from "./game_object"
+import Velocity from "./velocity"
+// import {gravityValues} from "./props"
 
 class Display {
     constructor(game){
@@ -10,34 +12,53 @@ class Display {
 
     setupCanvas(){
         paper.install(window)
-        let canvas = document.getElementById('view');
-        // canvas.style.background = "lightblue"
+        const initYVelInput = document.querySelector("#obj-init-y-vel")
+        const initXVelInput = document.querySelector("#obj-init-x-vel")
+        const massInput = document.querySelector("#obj-mass")
+        const fricCoeffInput = document.querySelector("#obj-fric-coeff")
+        const widthInput = document.querySelector("#obj-width")
+        const heightInput = document.querySelector("#obj-height")
+        
         paper.setup('view');
         this.view = view
         let tool = new Tool();
         
+        
         tool.onMouseDown = function(event) {
             let exists = Object.values(this.game.gameObjects).some(object=> object.path.contains(event.point))
             if (!exists){
-                console.log(event.point)
-                let path = new Path.Rectangle(event.point, [30, 30]);
-                path.fillColor = 'blue';
-                console.log(path.position.x)
-                let gameObject = new GameObject(this.game, path, 15)
+                let path = new Path.Rectangle(event.point, 
+                    [
+                        parseInt(widthInput.value), 
+                        parseInt(heightInput.value)
+                    ]
+                );
+                console.log(initXVelInput.value)
+                let objectProps = {
+                    fricCoeff: parseInt(fricCoeffInput.value), 
+                    mass: parseInt(massInput.value), 
+                    initialVelocity: 
+                        new Velocity(
+                            parseInt(initXVelInput.value), 
+                            parseInt(initYVelInput.value)
+                            )
+                    }
+                path.fillColor = 'black';
+                let gameObject = new GameObject(this.game, path, objectProps)
                 this.game.gameObjects[path.id] = gameObject
                 console.log(this.game.gameObjects)
             }
         }.bind(this)
     }
-                    // path.onMouseUp = (event) => {
-                //     delete this.objects[path.id]
-                //     path.remove()
-                // }
     
 }
 
 export default Display
 
+// path.onMouseUp = (event) => {
+//     delete this.objects[path.id]
+//     path.remove()
+// }
 
 // const paper = require("paper")
 // paper.install(window)

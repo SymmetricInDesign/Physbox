@@ -1,0 +1,1 @@
+export const gravityValues = {Earth: 9.807, Moon: 1.625, Space: 0}

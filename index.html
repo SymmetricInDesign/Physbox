@@ -31,10 +31,12 @@
             <div class="panel-div">
                 <p>Object Properties</p>
                 <!-- <span>Y Velocity</span> -->
-                <input type="number" placeholder="Initial Y Velocity (m/s)">
-                <input type="number" placeholder="Initial X Velocity (m/s)">
-                <input type="number" placeholder="Mass (kg)">
-                <input type="number" placeholder="Frictional Coefficient">
+                <input id="obj-init-y-vel" type="number" placeholder="Initial Y Velocity (m/s)" value=-10>
+                <input id="obj-init-x-vel" type="number" placeholder="Initial X Velocity (m/s)" value=-3>
+                <input id="obj-mass" type="number" placeholder="Mass (kg)" value=5>
+                <input id="obj-fric-coeff" type="number" placeholder="Frictional Coefficient" value=0.15>
+                <input id="obj-width" type="number" placeholder="Width" value=20>
+                <input id="obj-height" type="number" placeholder="Height" value=20>
             </div>
             <div class="panel-div">Create Object</div>
             <!-- <div class="panel-div">Object</div> -->
@@ -56,10 +58,12 @@
                 <p>Forces</p>
                 <div id="gravity-select">
                     <span>Gravity: </span>
-                    <input type="radio" name="gravity" value="Earth" id="earth">
+                    <input type="radio" name="gravity" value="Earth" id="earth" checked>
                     <label for="earth">Earth</label>
                     <input type="radio" name="gravity" value="Moon" id="moon">
                     <label for="moon">Moon</label>
+                    <input type="radio" name="gravity" value="Space" id="space">
+                    <label for="space">Space</label>
 
                 </div>
             </div>
