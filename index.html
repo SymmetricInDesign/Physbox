@@ -11,31 +11,63 @@
 </head>
 
 <body>
+    <div id="header">
+        <h1>PhysBox</h1>
+    </div>
     <div id="app">
         <div class="object-panel">
             <div></div>
-            <div>Object Category</div>
-            <div>Object type/shape</div>
-            <div>Object props</div>
-            <div>Create Object</div>
-            <div>Object</div>
+            <div class="panel-div">Object Category</div>
+            <div class="panel-div">
+                <p>Object type/shape</p>
+                <div id="gravity-select">
+                    <span>Shape: </span>
+                    <input type="radio" name="shape" value="square" id="square">
+                    <label for="square">square</label>
+                    <input type="radio" name="shape" value="circle" id="circle">
+                    <label for="circle">circle</label>
+                </div>
+            </div>
+            <div class="panel-div">
+                <p>Object Properties</p>
+                <!-- <span>Y Velocity</span> -->
+                <input type="number" placeholder="Initial Y Velocity (m/s)">
+                <input type="number" placeholder="Initial X Velocity (m/s)">
+                <input type="number" placeholder="Mass (kg)">
+                <input type="number" placeholder="Frictional Coefficient">
+            </div>
+            <div class="panel-div">Create Object</div>
+            <!-- <div class="panel-div">Object</div> -->
         </div>
         <div class="middle">
             <div class="tabs-container">
                 <!-- <div></div> -->
-                <div>tab1</div>
-                <div>tab2</div>
-                <div>tab3</div>
+                <div class="panel-div">tab1</div>
+                <div class="panel-div">tab2</div>
+                <div class="panel-div">tab3</div>
                 <!-- <div></div> -->
             </div>
-            <canvas id="view" height=800 width=1100></canvas>
+            <canvas id="view" height=800 width=1300></canvas>
         </div>
         <div class="settings">
             <div></div>
-            <div id="timescale">Timescale</div>
-            <div id="forces">Forces</div>
-            <div id="instructions">instructions</div>
+            <div class="panel-div" id="timescale">Timescale</div>
+            <div class="panel-div" id="forces">
+                <p>Forces</p>
+                <div id="gravity-select">
+                    <span>Gravity: </span>
+                    <input type="radio" name="gravity" value="Earth" id="earth">
+                    <label for="earth">Earth</label>
+                    <input type="radio" name="gravity" value="Moon" id="moon">
+                    <label for="moon">Moon</label>
+
+                </div>
+            </div>
+            <div class="panel-div" id="instructions">Instructions</div>
         </div>
+    </div>
+    <div id="footer">
+
     </div>
 </body>
 

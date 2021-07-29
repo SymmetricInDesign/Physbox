@@ -11,7 +11,7 @@ class Display {
     setupCanvas(){
         paper.install(window)
         let canvas = document.getElementById('view');
-        canvas.style.background = "lightblue"
+        // canvas.style.background = "lightblue"
         paper.setup('view');
         this.view = view
         let tool = new Tool();
@@ -20,10 +20,10 @@ class Display {
             let exists = Object.values(this.game.gameObjects).some(object=> object.path.contains(event.point))
             if (!exists){
                 console.log(event.point)
-                let path = new Path.Rectangle(event.point, [10, 10]);
-                path.fillColor = 'green';
+                let path = new Path.Rectangle(event.point, [30, 30]);
+                path.fillColor = 'blue';
                 console.log(path.position.x)
-                let gameObject = new GameObject(this.game, path, 5)
+                let gameObject = new GameObject(this.game, path, 15)
                 this.game.gameObjects[path.id] = gameObject
                 console.log(this.game.gameObjects)
             }
