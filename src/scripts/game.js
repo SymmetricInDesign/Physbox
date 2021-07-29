@@ -24,6 +24,7 @@ class Game {
         }
         if (this.lastFrameTime){
             let currentTime = performance.now()
+            Object.values(this.gameObjects).forEach(object => object.checkedForCollisions=false)
             Object.values(this.gameObjects).forEach(object=>{
                 let deltaT = (currentTime - this.lastFrameTime) / 1000
                 // console.log(deltaT)

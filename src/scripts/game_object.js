@@ -2,6 +2,7 @@ import { Point } from "paper/dist/paper-core"
 import Force from "./force"
 import Velocity from "./velocity"
 import Acceleration from "./acceleration"
+import Momentum from "./momentum"
 
 class GameObject{
     constructor(game, path, mass, initialVelocity=new Velocity(2,-10))
@@ -22,16 +23,15 @@ class GameObject{
         const totalForce = this.sumForces() 
         this.acceleration = new Acceleration(totalForce.x/mass, totalForce.y/mass)
         // this.checkedForCollisions = false
-        // this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
+        this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
+        this.touchingGround = false;
     }
 
     updatePos(deltaT, pixelScale){
-        // (this.velocity.y)
-
         if (this.velocity.x != 0) this.updateXPos(deltaT, pixelScale)   
         if (this.velocity.y != 0) this.updateYPos(deltaT, pixelScale)
+
         let collisionSubject = this.checkForCollisions()
-        // (collisionSubject)
         if (collisionSubject){
             let collisionAngle = this.correctCollisionPosition(collisionSubject)
             this.collideWith(collisionSubject, collisionAngle)
@@ -39,50 +39,48 @@ class GameObject{
     }
 
     updateXPos(deltaT, pixelScale){
-        // console.log(this.velocity.x)
-        // debugger
-        if (this.velocity.x > 0.1){
+        if (Math.abs(this.velocity.x > 0.1)){
             this.path.position.x += (this.velocity.x * pixelScale * deltaT)
         }else{
             this.velocity.x = 0
-            this.path.position = new Point(
-                    this.path.position.x, 
-                    this.game.groundYPos-this.path.bounds.height/2
-                )
         }
     }
     updateYPos(deltaT, pixelScale){
-            if (this.velocity.y < 0){
-                this.setGroundAttachment(false)
+            // if (this.velocity.y < 0){
+            //     this.setGroundAttachment(false)
+            // }
+            if (Math.abs(this.velocity.y) > 90){
+                debugger
             }
-        // (this.velocity.y)
-            if ((this.path.position.y + this.path.bounds.height/2 < this.game.groundYPos || this.velocity.y < 0) && !this.restingOnObject){
+            if ((this.path.position.y + this.path.bounds.height/2 < this.game.groundYPos || this.velocity.y < 0)){
                 this.path.position.y += (this.velocity.y * pixelScale * deltaT)
+                this.touchingGround = false
             }else{
                 if (this.velocity.y > 0.2){
                     this.velocity.y = this.velocity.y * (-0.3)
                 }else{
                     this.velocity.y = 0
-                    if (!this.restingOnObject){
-                        this.path.position = new Point(
-                                this.path.position.x, 
-                                this.game.groundYPos-this.path.bounds.height/2
-                            )
-                        this.setGroundAttachment(true)
-                    }else{
-                        console.log(this.restingOnObject.path.bounds.point.y)
-                        this.path.position = new Point(
+                    this.touchingGround = true
+                    // if (!this.restingOnObject){
+                    this.path.position = new Point(
                             this.path.position.x, 
-                            this.restingOnObject.path.bounds.point.y-this.path.bounds.height/2
+                            this.game.groundYPos-this.path.bounds.height/2
                         )
-                    }
+                        // this.setGroundAttachment(true)
+                    // }else{
+                    //     // console.log(this.restingOnObject.path.bounds.point.y)
+                    //     this.path.position = new Point(
+                    //         this.path.position.x, 
+                    //         this.restingOnObject.path.bounds.point.y-this.path.bounds.height/2
+                    //     )
+                    // }
                 }
             }
     }
 
     updateVelocity(deltaT){
         this.velocity.add(this.acceleration, deltaT)
-        this.momentum = this.velocity * this.mass
+        this.momentum = new Momentum(this.velocity.x * this.mass, this.velocity.y * this.mass)
     }
 
     updateAcceleration(){
@@ -93,6 +91,7 @@ class GameObject{
 
     //deltaT is the real time interval between the last frame and current frame
     update(deltaT, pixelScale=10){
+        this.deltaT = deltaT
         this.updatePos(deltaT, pixelScale)
         this.updateVelocity(deltaT)
         this.updateAcceleration()
@@ -146,7 +145,7 @@ class GameObject{
             sumXForces += force.x;
             sumYForces += force.y
         })
-        if (this.touchingGround || this.restingOnObject){
+        if (this.touchingGround){
             sumYForces += this.conditionalForces.normalForce.y
             if (this.velocity.x > 0.05){
                 sumXForces -= this.conditionalForces.frictionKinetic.x
@@ -167,28 +166,53 @@ class GameObject{
 
     correctCollisionPosition(collisionSubject){
         let intersection = this.path.bounds.intersect(collisionSubject.path.bounds)
-        if (intersection.height <= intersection.width && this.velocity.y !=0){
-            let timeIntersected = Math.abs(intersection.height / this.velocity.y)
-            if (timeIntersected < 1){
+        if (intersection.height <= intersection.width){
+            if(this.touchingGround){
+                return 0;
+            }
+            if (
+                (this.path.bounds.bottomLeft.y > collisionSubject.path.bounds.topLeft.y 
+                || 
+                this.path.bounds.bottomRight.y > collisionSubject.path.bounds.topLeft.y)
+                &&
+                (this.path.bounds.topLeft.y < collisionSubject.path.bounds.topLeft.y 
+                || 
+                this.path.bounds.topRight.y < collisionSubject.path.bounds.topLeft.y)
+            ){
                 this.path.position = new Point(
                     this.path.position.x,
-                    this.path.position.y-(timeIntersected+0.03)*this.velocity.y,
-                    )
-            }
-            if (this.path.position.x <= 10){
-            }
-            return 0
-        }else{
-            let timeIntersected = Math.abs(intersection.width / this.velocity.x)
-            // (timeIntersected)
-            if (timeIntersected < 1){
-                this.path.position = new Point(
-                    this.path.position.x-(timeIntersected+0.03)*this.velocity.x,
-                    this.path.position.y,
+                    this.path.position.y - intersection.height-0.02
                     )
 
+            }else{
+                this.path.position = new Point(
+                    this.path.position.x,
+                    this.path.position.y + intersection.height+0.02
+                    )
             }
-            return 90
+            return 0;    
+        }else{
+            if (
+                (this.path.bounds.bottomLeft.x < collisionSubject.path.bounds.topRight.x 
+                || 
+                this.path.bounds.topLeft.x < collisionSubject.path.bounds.topRight.x)
+                &&
+                (this.path.bounds.bottomRight.x > collisionSubject.path.bounds.topRight.x 
+                || 
+                this.path.bounds.topRight.x > collisionSubject.path.bounds.topRight.x)
+            ){
+                this.path.position = new Point(
+                    this.path.position.x + intersection.width+0.02,
+                    this.path.position.y 
+                    )
+
+            }else{
+                this.path.position = new Point(
+                    this.path.position.x - intersection.width-0.02,
+                    this.path.position.y 
+                    )
+            }
+            return 90;  
         }
     }
 
@@ -196,24 +220,23 @@ class GameObject{
         let collisionSubject = null
         // this.checkedForCollisions = false
         let restingOnGroundedObject = false
+        this.grounded=false
         Object.values(this.game.gameObjects).forEach(gameObject=>{
             if (this.path.intersects(gameObject.path) && gameObject != this && !gameObject.checkedForCollisions){
                 // (this.path.position.y, gameObject.path.position.y)
                 collisionSubject = gameObject
             }
             if (this.checkIfOnTopOfObject(gameObject)){
-                restingOnGroundedObject = true
-                this.setAttachmentToGroundedObject(gameObject)
+                this.grounded = true
             }
         })
-        if (!restingOnGroundedObject){
-            this.setAttachmentToGroundedObject(false);
-        }else{
-            console.log(this)
-
-        }
-            
         // this.checkedForCollisions = true
+        // if (!restingOnGroundedObject){
+        //     this.setAttachmentToGroundedObject(false);
+        // }else{
+        //     console.log(this)
+
+        // }
         return collisionSubject
     }
 
@@ -222,32 +245,45 @@ class GameObject{
             this.setCollisionVelocities(gameObject, 'x')
         }else if (collisionAngle == 0){
             this.setCollisionVelocities(gameObject, 'y')
-            this.checkIfOnGroundedObject(gameObject)
+            // this.checkIfOnGroundedObject(gameObject)
         }      
     }
 
-    checkIfOnGroundedObject(gameObject){
-        if (gameObject.touchingGround && Math.abs(this.velocity.y) < 0.1){
-            this.setAttachmentToGroundedObject(gameObject)
-            return true
-        }else{
-            this.setAttachmentToGroundedObject(false)
-            return false
-        }
-    }
+    // checkIfOnGroundedObject(gameObject){
+    //     if (gameObject.touchingGround && Math.abs(this.velocity.y) < 0.1){
+    //         this.setAttachmentToGroundedObject(gameObject)
+    //         return true
+    //     }else{
+    //         this.setAttachmentToGroundedObject(false)
+    //         return false
+    //     }
+    // }
     setCollisionVelocities(gameObject, axis){
         // equations for resulting velocities from perfectly elastic collision with 0 angle.
         let initialVelocity = Object.assign({},this.velocity)
-        const totalMass = this.mass + gameObject.mass
-        this.velocity[axis] = 
-        (this.mass-gameObject.mass)/(totalMass)*initialVelocity[axis]
-        + 
-        (2 * gameObject.velocity[axis] * gameObject.mass) / (totalMass)
-        gameObject.velocity[axis] = 
-        (2 * initialVelocity[axis] * this.mass) / (totalMass)
-        - 
-        (this.mass-gameObject.mass)/(totalMass) * gameObject.velocity[axis]
-    }s
+        if((gameObject.touchingGround || gameObject.grounded) && axis=="y"){
+            this.velocity.y = -0.3 * this.velocity.y
+            if (this.velocity.x < -0.01){
+                this.velocity.x += this.deltaT * this.conditionalForces.frictionKinetic.x / this.mass
+            }else if (this.velocity.x>0.01){
+                this.velocity.x -= this.deltaT * this.conditionalForces.frictionKinetic.x / this.mass
+            }else{
+                this.velocity.x = 0
+            }
+            return
+        }
+        if (Math.abs(initialVelocity[axis]) > 0.02){
+            const totalMass = this.mass + gameObject.mass
+            this.velocity[axis] = 
+            (this.mass-gameObject.mass)/(totalMass)*initialVelocity[axis]
+            + 
+            (2 * gameObject.velocity[axis] * gameObject.mass) / (totalMass)
+            gameObject.velocity[axis] = 
+            (2 * initialVelocity[axis] * this.mass) / (totalMass)
+            - 
+            (this.mass-gameObject.mass)/(totalMass) * gameObject.velocity[axis]
+        }
+    }
 }
 
 export default GameObject
