@@ -5,26 +5,22 @@ import Acceleration from "./acceleration"
 import Momentum from "./momentum"
 
 class GameObject{
-    constructor(game, path, mass, initialVelocity=new Velocity(2,-10))
+    // constructor(game, path, mass, initialVelocity=new Velocity(2,-10))
+    constructor(game, path, objectProps)
     {
-        const {gravitationalAcc, groundFriction} = game.envProperties
+        const {mass, initialVelocity, fricCoeff} = objectProps
         this.game = game
         this.path = path
         this.mass = mass
+        this.fricCoeff = fricCoeff
         this.velocity = initialVelocity
-        this.constantForces = {
-            gravity: new Force(0, gravitationalAcc * mass),
-        }
-        this.conditionalForces = {
-            frictionKinetic: new Force(gravitationalAcc * mass * groundFriction.kinetic,0),
-            frictionStatic: new Force(gravitationalAcc * mass * groundFriction.static,0),
-            normalForce: new Force(0, -this.constantForces.gravity.y)
-        }
+        this.assignForces()
         const totalForce = this.sumForces() 
         this.acceleration = new Acceleration(totalForce.x/mass, totalForce.y/mass)
         // this.checkedForCollisions = false
         this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
         this.touchingGround = false;
+        console.log(this)
     }
 
     updatePos(deltaT, pixelScale){
@@ -39,16 +35,38 @@ class GameObject{
     }
 
     updateXPos(deltaT, pixelScale){
-        if (Math.abs(this.velocity.x > 0.1)){
-            this.path.position.x += (this.velocity.x * pixelScale * deltaT)
+        console.log(this.path.bounds.bottomLeft)
+        if (this.path.bounds.bottomLeft.x > 0 && this.path.bounds.bottomRight.x < this.game.width){
+            if (Math.abs(this.velocity.x) > 0.1){
+                this.path.position.x += (this.velocity.x * pixelScale * deltaT)
+            }else{
+                this.velocity.x = 0
+            }
         }else{
-            this.velocity.x = 0
+            if (Math.abs(this.velocity.x) > 0.2){
+                this.velocity.x = this.velocity.x * (-0.8)
+                this.path.position = new Point(
+                    this.path.position.x > this.path.bounds.width/2+1 ? 
+                        this.game.width-this.path.bounds.width/2-1 
+                        : 
+                        this.path.bounds.width/2+1,
+
+                    this.path.position.y
+                )
+            }else{
+                this.velocity.x = 0
+                this.path.position = new Point(
+                        this.path.position.x > this.path.bounds.width/2+1 ? 
+                            this.game.width-this.path.bounds.width/2 
+                            : 
+                            this.path.bounds.width/2,
+
+                        this.path.position.y
+                    )
+            }
         }
     }
     updateYPos(deltaT, pixelScale){
-            // if (this.velocity.y < 0){
-            //     this.setGroundAttachment(false)
-            // }
             if (Math.abs(this.velocity.y) > 90){
                 debugger
             }
@@ -61,19 +79,10 @@ class GameObject{
                 }else{
                     this.velocity.y = 0
                     this.touchingGround = true
-                    // if (!this.restingOnObject){
                     this.path.position = new Point(
                             this.path.position.x, 
                             this.game.groundYPos-this.path.bounds.height/2
                         )
-                        // this.setGroundAttachment(true)
-                    // }else{
-                    //     // console.log(this.restingOnObject.path.bounds.point.y)
-                    //     this.path.position = new Point(
-                    //         this.path.position.x, 
-                    //         this.restingOnObject.path.bounds.point.y-this.path.bounds.height/2
-                    //     )
-                    // }
                 }
             }
     }
@@ -92,9 +101,22 @@ class GameObject{
     //deltaT is the real time interval between the last frame and current frame
     update(deltaT, pixelScale=10){
         this.deltaT = deltaT
+        this.assignForces()
         this.updatePos(deltaT, pixelScale)
         this.updateVelocity(deltaT)
         this.updateAcceleration()
+    }
+
+    assignForces(){
+        const {gravitationalAcc, groundFriction} = this.game.envProperties
+        this.constantForces = {
+            gravity: new Force(0, gravitationalAcc * this.mass),
+        }
+        this.conditionalForces = {
+            frictionKinetic: new Force(gravitationalAcc * this.mass * groundFriction.kinetic,0),
+            frictionStatic: new Force(gravitationalAcc * this.mass * groundFriction.static,0),
+            normalForce: new Force(0, -this.constantForces.gravity.y)
+        }
     }
 
     setGroundAttachment(attached){
@@ -201,14 +223,15 @@ class GameObject{
                 || 
                 this.path.bounds.topRight.x > collisionSubject.path.bounds.topRight.x)
             ){
+                debugger
                 this.path.position = new Point(
-                    this.path.position.x + intersection.width+0.02,
+                    this.path.position.x + intersection.width+0.1,
                     this.path.position.y 
                     )
 
             }else{
                 this.path.position = new Point(
-                    this.path.position.x - intersection.width-0.02,
+                    this.path.position.x - intersection.width-0.1,
                     this.path.position.y 
                     )
             }
