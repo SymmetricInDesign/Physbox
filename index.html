@@ -17,12 +17,21 @@
     <div id="app">
         <div class="object-panel">
             <div></div>
-            <div class="panel-div">Object Category</div>
+            <div class="panel-div">
+                <p>Object Category</p>
+                <div id="type-select">
+                    <!-- <span>Type: </span> -->
+                    <!-- <input type="radio" name="obj-type" value="uncharged" id="uncharged" checked>
+                    <label for="uncharged">Uncharged</label>
+                    <input type="radio" name="obj-type" value="charged" id="charged">
+                    <label for="charged">Charged</label> -->
+                </div>
+            </div>
             <div class="panel-div">
                 <p>Object type/shape</p>
                 <div id="gravity-select">
                     <span>Shape: </span>
-                    <input type="radio" name="shape" value="square" id="square">
+                    <input type="radio" name="shape" value="square" id="square" checked>
                     <label for="square">square</label>
                     <input type="radio" name="shape" value="circle" id="circle">
                     <label for="circle">circle</label>
@@ -32,28 +41,32 @@
                 <p>Object Properties</p>
                 <!-- <span>Y Velocity</span> -->
                 <div>
-                    <label for="obj-init-y-vel">Y Velocity: </label>
-                    <input id="obj-init-y-vel" type="number" placeholder="Initial Y Velocity (m/s)" value=-10>
+                    <label for="obj-init-y-vel">Y Velocity (m/s): </label>
+                    <input id="obj-init-y-vel" type="number" placeholder="Initial Y Velocity" value=0>
                 </div>
                 <div>
-                    <label for="obj-init-x-vel">X Velocity: </label>
-                    <input id="obj-init-x-vel" type="number" placeholder="Initial X Velocity (m/s)" value=-3>
+                    <label for="obj-init-x-vel">X Velocity (m/s): </label>
+                    <input id="obj-init-x-vel" type="number" placeholder="Initial X Velocity" value=0>
                 </div>
                 <div>
-                    <label for="obj-mass">Mass: </label>
-                    <input id="obj-mass" type="number" placeholder="Mass (kg)" value=5>
+                    <label for="obj-mass">Mass (kg): </label>
+                    <input id="obj-mass" type="number" placeholder="Mass" value=20>
                 </div>
                 <div>
-                    <label for="obj-fric-coeff">Friction: </label>
-                    <input id="obj-fric-coeff" type="number" placeholder="Frictional Coefficient" value=0.15>
+                    <label for="obj-fric-coeff">Friction Coeff.: </label>
+                    <input id="obj-fric-coeff" type="number" placeholder="Frictional Coefficient" value=0.3 min=0 max=1 step=0.05>
                 </div>
                 <div>
-                    <label for="obj-width">Width: </label>
+                    <label for="obj-width">Width (dm): </label>
                     <input id="obj-width" type="number" placeholder="Width" value=20>
                 </div>
                 <div>
-                    <label for="obj-height">Height: </label>
+                    <label for="obj-height">Height(dm): </label>
                     <input id="obj-height" type="number" placeholder="Height" value=20>
+                </div>
+                <div>
+                    <label for="obj-charge">Charge (C): </label>
+                    <input id="obj-charge" type="number" placeholder="Charge" value=0 min=-1 max=1 step=0.01>
                 </div>
             </div>
             <!-- <div class="panel-div">Create Object</div> -->
@@ -71,21 +84,39 @@
         </div>
         <div class="settings">
             <div></div>
-            <div class="panel-div" id="timescale">Timescale</div>
+            <div class="panel-div" id="timescale">
+                <p>Timescale</p>
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="2" value="1" step=0.25 class="slider" id="timescale">
+                </div>
+            </div>
             <div class="panel-div" id="forces">
                 <p>Forces</p>
                 <div id="gravity-select">
-                    <span>Gravity: </span>
-                    <input type="radio" name="gravity" value="Earth" id="earth" checked>
-                    <label for="earth">Earth</label>
-                    <input type="radio" name="gravity" value="Moon" id="moon">
-                    <label for="moon">Moon</label>
-                    <input type="radio" name="gravity" value="Space" id="space">
-                    <label for="space">Space</label>
-
+                    <p>Gravity</p>
+                    <div>
+                        <label for="earth">Earth</label>
+                        <input type="radio" name="gravity" value="Earth" id="earth" checked>
+                    </div>
+                    <div>
+                        <label for="moon">Moon</label>
+                        <input type="radio" name="gravity" value="Moon" id="moon">
+                    </div>
+                    <div>
+                        <label for="jupiter">Jupiter</label>
+                        <input type="radio" name="gravity" value="Jupiter" id="jupiter">
+                    </div>
+                    <div>
+                        <label for="space">Space</label>
+                        <input type="radio" name="gravity" value="Space" id="space">
+                    </div>
+                </div>
+                <div>
+                    <label for="wind">Wind (km/s): </label>
+                    <input id="wind" type="number" placeholder="Wind Speed" value=1>
                 </div>
             </div>
-            <div class="panel-div" id="instructions">Instructions</div>
+            <div class="panel-div" id="instructions"><p>Instructions</p></div>
         </div>
     </div>
     <div id="footer">

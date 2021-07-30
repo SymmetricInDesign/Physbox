@@ -3,24 +3,26 @@ import Force from "./vectors/force"
 import Velocity from "./vectors/velocity"
 import Acceleration from "./vectors/acceleration"
 import Momentum from "./vectors/momentum"
+import { COULOMB_CONSTANT } from "./util"
 
 class GameObject{
     // constructor(game, path, mass, initialVelocity=new Velocity(2,-10))
     constructor(game, path, objectProps)
     {
-        const {mass, initialVelocity, fricCoeff} = objectProps
+        const {mass, charge, initialVelocity, fricCoeff} = objectProps
         this.game = game
         this.path = path
         this.mass = mass
+        this.charge = charge
         this.fricCoeff = fricCoeff
         this.velocity = initialVelocity
         this.assignForces()
         const totalForce = this.sumForces() 
         this.acceleration = new Acceleration(totalForce.x/mass, totalForce.y/mass)
         // this.checkedForCollisions = false
-        this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
+        // this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
         this.touchingGround = false;
-        console.log(this)
+        // console.log(this)
     }
 
     updatePos(deltaT, pixelScale){
@@ -35,9 +37,9 @@ class GameObject{
     }
 
     updateXPos(deltaT, pixelScale){
-        console.log(this.path.bounds.bottomLeft)
+        // console.log(this.path.bounds.bottomLeft)
         if (this.path.bounds.bottomLeft.x > 0 && this.path.bounds.bottomRight.x < this.game.width){
-            if (Math.abs(this.velocity.x) > 0.1){
+            if (Math.abs(this.velocity.x) > 0.01){
                 this.path.position.x += (this.velocity.x * pixelScale * deltaT)
             }else{
                 this.velocity.x = 0
@@ -89,11 +91,13 @@ class GameObject{
 
     updateVelocity(deltaT){
         this.velocity.add(this.acceleration, deltaT)
-        this.momentum = new Momentum(this.velocity.x * this.mass, this.velocity.y * this.mass)
+        // this.momentum = new Momentum(this.velocity.x * this.mass, this.velocity.y * this.mass)
     }
 
     updateAcceleration(){
-        const force = this.sumForces()
+        // const force = this.game.frameCount % 3 == 0 || !this.forceSum ? this.sumForces() : this.forceSum
+        // this.forceSum = force
+        const force= this.sumForces()
         const newAcc = this.acceleration.update(force, this.mass)
         return newAcc
     }
@@ -113,7 +117,7 @@ class GameObject{
             gravity: new Force(0, gravitationalAcc * this.mass),
         }
         this.conditionalForces = {
-            frictionKinetic: new Force(gravitationalAcc * this.mass * groundFriction.kinetic,0),
+            frictionKinetic: new Force(gravitationalAcc * this.mass * this.fricCoeff,0),
             frictionStatic: new Force(gravitationalAcc * this.mass * groundFriction.static,0),
             normalForce: new Force(0, -this.constantForces.gravity.y)
         }
@@ -136,7 +140,6 @@ class GameObject{
             }
     }
 
-
     // will need an override for electromagnetic objects/dynamic gravity.
     sumForces(){
         let sumXForces = 0;
@@ -155,14 +158,45 @@ class GameObject{
 
             }
         }
+        if (this.charge != 0 && Object.values(this.game.gameObjects).length > 1){
+            Object.values(this.game.gameObjects).forEach(gameObject => {
+                if (gameObject.charge != 0 && gameObject!==this){
+                    const coulombForce = this.calculateCoulombForce(gameObject) 
+                    sumXForces += coulombForce.x
+                    sumYForces += coulombForce.y
+                }
+            })
+        }
         return new Force(sumXForces, sumYForces)
+    }
+
+    calculateCoulombForce(gameObject){
+        const dY = gameObject.path.position.y - this.path.position.y
+        const dX = gameObject.path.position.x - this.path.position.x
+        const rSquared = (dX)**2 + (dY)**2
+        const theta = Math.atan(Math.abs(dY)/Math.abs(dX))
+        // console.log(theta)
+        const forceTot = COULOMB_CONSTANT * this.charge * gameObject.charge / rSquared
+        let forceX
+        let forceY
+        if (dX < 0){
+            forceX = forceTot*Math.cos(theta)
+        }else{
+            forceX = -forceTot*Math.cos(theta)
+        }
+        if (dY < 0){
+            forceY = forceTot*Math.sin(theta)
+        }else{
+            forceY = -forceTot*Math.sin(theta)
+        }
+        console.log({x: forceX, y: forceY})
+        return {x: forceX, y: forceY}
     }
 
     distanceTo(gameObject){
         return Math.sqrt((gameObject.path.position.x-this.path.position.x)**2 
                      + (gameObject.path.position.y - this.path.position.y)**2)
     }
-
     
     checkForCollisions(){
         let collisionSubject = null
@@ -256,14 +290,14 @@ class GameObject{
         }
         if (Math.abs(initialVelocity[axis]) > 0.02){
             const totalMass = this.mass + gameObject.mass
-            this.velocity[axis] = 
+            this.velocity[axis] = 0.9 * (
             (this.mass-gameObject.mass)/(totalMass)*initialVelocity[axis]
             + 
-            (2 * gameObject.velocity[axis] * gameObject.mass) / (totalMass)
-            gameObject.velocity[axis] = 
+            (2 * gameObject.velocity[axis] * gameObject.mass) / (totalMass))
+            gameObject.velocity[axis] = 0.9*(
             (2 * initialVelocity[axis] * this.mass) / (totalMass)
             - 
-            (this.mass-gameObject.mass)/(totalMass) * gameObject.velocity[axis]
+            (this.mass-gameObject.mass)/(totalMass) * gameObject.velocity[axis])
         }
     }
 }

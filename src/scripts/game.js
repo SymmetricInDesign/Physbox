@@ -18,23 +18,20 @@ class Game {
     }
     
     update(){
-        this.gravitySelect = document.querySelector("input[name='gravity']:checked")
-        this.envProperties.gravitationalAcc = gravityValues[this.gravitySelect.value]
-        console.log(this.gravitySelect.value)
-        // console.log(this.envProperties.gravitationalAcc)
         this.framecount += 1
-        if (this.framecount == 20){
-            // console.log(`${20000/(performance.now()-this.t1)} fps`)
-            this.t1=performance.now();
-            this.framecount = 0;
+        if (this.framecount % 4 == 0){
+            this.gravitySelect = document.querySelector("input[name='gravity']:checked")
+            this.envProperties.gravitationalAcc = gravityValues[this.gravitySelect.value]
+            if (this.framecount % 20 == 0){
+                this.t1=performance.now();
+            }
         }
         if (this.lastFrameTime){
+            // Calculates time elapsed since last frame for use in calculations
             let currentTime = performance.now()
-            Object.values(this.gameObjects).forEach(object => object.checkedForCollisions=false)
             Object.values(this.gameObjects).forEach(object=>{
                 let deltaT = (currentTime - this.lastFrameTime) / 1000
                 if (deltaT < 0.5){
-
                     object.update(deltaT)
                 }
             })

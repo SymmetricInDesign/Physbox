@@ -18,6 +18,7 @@ class Display {
         const fricCoeffInput = document.querySelector("#obj-fric-coeff")
         const widthInput = document.querySelector("#obj-width")
         const heightInput = document.querySelector("#obj-height")
+        const chargeInput = document.querySelector("#obj-charge")
         
         paper.setup('view');
         this.view = view
@@ -29,18 +30,19 @@ class Display {
             if (!exists){
                 let path = new Path.Rectangle(event.point, 
                     [
-                        parseInt(widthInput.value), 
-                        parseInt(heightInput.value)
+                        parseFloat(widthInput.value), 
+                        parseFloat(heightInput.value)
                     ]
                 );
                 console.log(initXVelInput.value)
                 let objectProps = {
-                    fricCoeff: parseInt(fricCoeffInput.value), 
-                    mass: parseInt(massInput.value), 
+                    fricCoeff: parseFloat(fricCoeffInput.value), 
+                    mass: parseFloat(massInput.value), 
+                    charge: parseFloat(chargeInput.value),
                     initialVelocity: 
                         new Velocity(
-                            parseInt(initXVelInput.value), 
-                            parseInt(initYVelInput.value)
+                            parseFloat(initXVelInput.value), 
+                            parseFloat(initYVelInput.value)
                             )
                     }
                 path.fillColor = 'black';
