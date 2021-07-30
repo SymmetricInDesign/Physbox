@@ -1,7 +1,7 @@
 
 const paper = require("paper")
 import GameObject from "./game_object"
-import Velocity from "./velocity"
+import Velocity from "./vectors/velocity"
 // import {gravityValues} from "./props"
 
 class Display {

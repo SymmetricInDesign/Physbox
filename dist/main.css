@@ -44,6 +44,12 @@ body {
   color: white;
   border: 1px solid gray;
 }
+.object-panel div:last-of-type div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .object-panel div:first-of-type {
   flex-grow: unset;
   height: 41px;
@@ -68,7 +74,6 @@ body {
 
 div {
   box-sizing: border-box;
-  text-align: center;
 }
 
 .panel-div {
@@ -79,6 +84,7 @@ div {
   border: 1px solid rgba(211, 211, 211, 0.315);
 }
 .panel-div input {
+  width: 20%;
   height: 20px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
