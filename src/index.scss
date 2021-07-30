@@ -3,20 +3,24 @@ $div-color: rgb(143, 34, 34);
     // box-sizing: border-box;
     // border: 1px solid black;
 }
+html{
+    background: black;
+}
 body{
     // background: linear-gradient(rgb(0, 238, 255), rgb(60, 255, 0));
     background: linear-gradient(to bottom, rgb(0, 255, 255), 
     rgb(0, 191, 197) 50%, 
     rgb(238, 238, 238) 100%);
-
+    max-width: 1822px;
+    max-height: 1003.3px;
     height: 100vh;
-    margin: 0;
+    margin: 0 auto;
   }
 #app{
     display: flex;
     flex-direction: row;
-    // width: 1400px;
-    margin: 0 50px;
+    // max-width: 1722px;
+    margin: 0;
 }
 
 .middle{
@@ -49,6 +53,14 @@ body{
         color: white;
         border: 1px solid gray;
     }
+    div:last-of-type{
+        div{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
     div:first-of-type{
         flex-grow: unset;
         // background-color: unset;
@@ -63,12 +75,24 @@ body{
     flex-direction: column;
     &>div{
         flex-grow: 1;
-        word-wrap: normal;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background-color: $div-color;
         color: white;
         border: 1px solid gray;
+        #gravity-select{
+            display: flex;
+            flex-wrap: wrap;
+            p{
+                width: 100%
+            }
+            div{
+                margin: 3px;
+            }
+        }
     }
-    div:first-of-type{
+    &>div:first-of-type{
         flex-grow: unset;
         // background-color: unset;
         // border: unset;
@@ -76,9 +100,17 @@ body{
     }
 }
 
+#forces{
+    display: flex;
+    justify-content: space-between;
+    input{
+        display: block;
+    }
+}
+
 div{
     box-sizing: border-box;
-    text-align: center;
+    // text-align: center;
 }
 
 .panel-div{
@@ -88,6 +120,7 @@ div{
     align-items: center;
     border: 1px solid rgba(211, 211, 211, 0.315);
     input{
+        width: 20%;
         height: 20px;
         border-radius: 5px;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -99,6 +132,8 @@ div{
     }
     p{
         margin: 0;
+        font-weight: 700;
+        font-size: 18px;
     }
 }
 
@@ -106,6 +141,8 @@ div{
     display: flex;
     align-items: center;
     justify-content: center;
+    background: black;
+    color: white;
     h1{
         padding-top: 10px;
     }
@@ -119,6 +156,10 @@ div{
 
 input[type="radio"]{
     margin-left: 10px;
+}
+
+#timescale{
+    width: 100%;
 }
 
 #view{

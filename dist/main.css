@@ -1,16 +1,22 @@
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
+html {
+  background: black;
+}
+
 body {
   background: linear-gradient(to bottom, aqua, #00bfc5 50%, #eeeeee 100%);
+  max-width: 1822px;
+  max-height: 1003.3px;
   height: 100vh;
-  margin: 0;
+  margin: 0 auto;
 }
 
 #app {
   display: flex;
   flex-direction: row;
-  margin: 0 50px;
+  margin: 0;
 }
 
 .middle {
@@ -44,6 +50,12 @@ body {
   color: white;
   border: 1px solid gray;
 }
+.object-panel div:last-of-type div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .object-panel div:first-of-type {
   flex-grow: unset;
   height: 41px;
@@ -56,19 +68,38 @@ body {
 }
 .settings > div {
   flex-grow: 1;
-  word-wrap: normal;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #8f2222;
   color: white;
   border: 1px solid gray;
 }
-.settings div:first-of-type {
+.settings > div #gravity-select {
+  display: flex;
+  flex-wrap: wrap;
+}
+.settings > div #gravity-select p {
+  width: 100%;
+}
+.settings > div #gravity-select div {
+  margin: 3px;
+}
+.settings > div:first-of-type {
   flex-grow: unset;
   height: 41px;
 }
 
+#forces {
+  display: flex;
+  justify-content: space-between;
+}
+#forces input {
+  display: block;
+}
+
 div {
   box-sizing: border-box;
-  text-align: center;
 }
 
 .panel-div {
@@ -79,6 +110,7 @@ div {
   border: 1px solid rgba(211, 211, 211, 0.315);
 }
 .panel-div input {
+  width: 20%;
   height: 20px;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -90,12 +122,16 @@ div {
 }
 .panel-div p {
   margin: 0;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 #header {
   display: flex;
   align-items: center;
   justify-content: center;
+  background: black;
+  color: white;
 }
 #header h1 {
   padding-top: 10px;
@@ -109,6 +145,10 @@ div {
 
 input[type=radio] {
   margin-left: 10px;
+}
+
+#timescale {
+  width: 100%;
 }
 
 #view {
