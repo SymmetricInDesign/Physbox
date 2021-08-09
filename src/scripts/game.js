@@ -30,6 +30,9 @@ class Game {
             // Calculates time elapsed since last frame for use in calculations
             let currentTime = performance.now()
             Object.values(this.gameObjects).forEach(object=>{
+                if (this.framecount%2 == 0){
+                    object.path.fillColor.hue += 1;
+                }
                 let deltaT = (currentTime - this.lastFrameTime) / 1000
                 if (deltaT < 0.5){
                     object.update(deltaT)

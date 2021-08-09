@@ -1,4 +1,5 @@
 import Game from './scripts/game'
+import moon from "./img/moon.png"
 document.addEventListener("DOMContentLoaded", ()=>{
     const game = new Game()
 

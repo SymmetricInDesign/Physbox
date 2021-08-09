@@ -27,7 +27,15 @@ const config = {
           },
           'sass-loader', // compiles sass to css
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        loader: 'file-loader',
+        options:{
+          outputPath: './img/',
+          name: '[name].[ext]?[hash]'
       }
+      },
     ],
   },
   plugins: [new MiniCssExtractPlugin()],

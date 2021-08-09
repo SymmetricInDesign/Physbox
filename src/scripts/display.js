@@ -45,7 +45,7 @@ class Display {
                             parseFloat(initYVelInput.value)
                             )
                     }
-                path.fillColor = 'black';
+                path.fillColor = new Color(1, 0, 0.5, 0.5);
                 let gameObject = new GameObject(this.game, path, objectProps)
                 this.game.gameObjects[path.id] = gameObject
                 console.log(this.game.gameObjects)

@@ -16,7 +16,7 @@
     </div>
     <div id="app">
         <div class="object-panel">
-            <div></div>
+            <div class="panel-div"></div>
             <div class="panel-div">
                 <p>Object Category</p>
                 <div id="type-select">
@@ -75,19 +75,22 @@
         <div class="middle">
             <div class="tabs-container">
                 <!-- <div></div> -->
-                <div class="panel-div">tab1</div>
-                <div class="panel-div">tab2</div>
-                <div class="panel-div">tab3</div>
+                <div class="panel-div"><p>tab1</p></div>
+                <div class="panel-div"><p>tab2</p></div>
+                <div class="panel-div"><p>tab3</p></div>
                 <!-- <div></div> -->
             </div>
             <canvas id="view" height=800 width=1300></canvas>
+            <div id="footer">
+
+            </div>
         </div>
         <div class="settings">
-            <div></div>
+            <div class="panel-div"></div>
             <div class="panel-div" id="timescale">
                 <p>Timescale</p>
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="2" value="1" step=0.25 class="slider" id="timescale">
+                    <input type="range" min="0" max="2" value="1" step=0.25 class="slider" id="timescale-slider">
                 </div>
             </div>
             <div class="panel-div" id="forces">
@@ -119,9 +122,7 @@
             <div class="panel-div" id="instructions"><p>Instructions</p></div>
         </div>
     </div>
-    <div id="footer">
-
-    </div>
+    
 </body>
 
 </html>
