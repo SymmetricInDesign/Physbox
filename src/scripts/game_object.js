@@ -103,9 +103,9 @@ class GameObject{
     }
 
     //deltaT is the real time interval between the last frame and current frame
-    update(deltaT, pixelScale=10){
+    update(deltaT, framecount, pixelScale=10){
         this.deltaT = deltaT
-        this.assignForces()
+        if ( framecount % 3 == 0 ) this.assignForces()
         this.updatePos(deltaT, pixelScale)
         this.updateVelocity(deltaT)
         this.updateAcceleration()

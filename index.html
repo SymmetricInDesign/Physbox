@@ -75,13 +75,13 @@
         <div class="middle">
             <div class="tabs-container">
                 <!-- <div></div> -->
-                <div class="panel-div"><p>tab1</p></div>
+                <div class="panel-div"><div id="reset-button">Reset</div></div>
                 <div class="panel-div"><p>tab2</p></div>
                 <div class="panel-div"><p>tab3</p></div>
                 <!-- <div></div> -->
             </div>
             <canvas id="view" height=800 width=1300></canvas>
-            <div id="footer">
+            <div id="ground">
 
             </div>
         </div>
@@ -97,7 +97,19 @@
                 <p>Forces</p>
                 <div id="gravity-select">
                     <p>Gravity</p>
-                    <div>
+                    <div class="gravity-option">
+                        Earth
+                    </div>
+                    <div class="gravity-option">
+                        Moon
+                    </div>
+                    <div class="gravity-option">
+                        Jupiter
+                    </div>
+                    <div class="gravity-option">
+                        Space
+                    </div>
+                    <!-- <div>
                         <label for="earth">Earth</label>
                         <input type="radio" name="gravity" value="Earth" id="earth" checked>
                     </div>
@@ -112,7 +124,7 @@
                     <div>
                         <label for="space">Space</label>
                         <input type="radio" name="gravity" value="Space" id="space">
-                    </div>
+                    </div> -->
                 </div>
                 <div>
                     <label for="wind">Wind (km/s): </label>
