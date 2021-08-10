@@ -1,7 +1,7 @@
 export const groundImgUrls = {
     Moon: "url(./src/img/moon.png)",
     Earth: "url(./src/img/grass.png)", 
-    Space: "none",
+    Space: "url(./src/img/steel.png)",
     Jupiter: "url(./src/img/jupiter.png)"
 }
 

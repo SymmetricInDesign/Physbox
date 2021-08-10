@@ -21,6 +21,7 @@ body {
 
 div {
   box-sizing: border-box;
+  transition: background-color 0.3s, border 0.3s;
 }
 
 #header {
@@ -41,13 +42,15 @@ div {
   background: url(./img/grass.png);
   background-repeat: no-repeat;
   background-size: cover;
+  transition: background-image 1s;
 }
 
 #view {
-  background: linear-gradient(to bottom, aqua, #00bfc5 50%, #eeeeee 100%);
+  background-image: linear-gradient(to bottom, aqua, #00bfc5 50%, #eeeeee 100%);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
   margin-top: 10px;
+  transition: background-image 0.5s ease-out, background-color 0.5s;
 }
 
 .panel-div {
@@ -81,6 +84,19 @@ div {
   margin-bottom: 5px;
   font-weight: 700;
   font-size: 18px;
+}
+
+.button {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 3px;
+  border: 3px solid rgba(211, 211, 211, 0.315);
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: rgba(101, 163, 175, 0.432);
+}
+.button:hover {
+  background-color: rgba(167, 214, 223, 0.432);
 }
 
 .middle {
@@ -120,7 +136,7 @@ div {
 }
 .object-panel div:first-of-type {
   flex-grow: unset;
-  height: 46.72px;
+  height: 58.67px;
 }
 
 .settings {
@@ -135,17 +151,24 @@ div {
 }
 .settings > div #gravity-select {
   display: flex;
-  flex-wrap: wrap;
-}
-.settings > div #gravity-select p {
+  flex-direction: column;
+  align-items: center;
   width: 100%;
 }
-.settings > div #gravity-select div {
+.settings > div #gravity-select p {
+  text-align: center;
+}
+.settings > div #gravity-select .button {
+  width: 90%;
   margin: 3px;
+}
+.settings > div #gravity-select .button.active-option {
+  border: 3px solid white;
+  background-color: rgba(167, 214, 223, 0.432);
 }
 .settings > div:first-of-type {
   flex-grow: unset;
-  height: 46.72px;
+  height: 58.67px;
 }
 .settings #timescale-slider {
   width: 100%;

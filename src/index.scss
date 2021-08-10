@@ -1,5 +1,7 @@
 $div-color: rgba(80, 145, 156, 0.185);
+$div-selected-color: rgba(167, 214, 223, 0.432);
 $background-color: rgb(59, 59, 59);
+$button-color: rgba(101, 163, 175, 0.432);
 *{
     // box-sizing: border-box;
     // border: 1px solid black;
@@ -22,6 +24,7 @@ body{
 
 div{
     box-sizing: border-box;
+    transition: background-color 0.3s, border 0.3s;
 }
 
 
@@ -43,15 +46,17 @@ div{
     background: url(./img/grass.png);
     background-repeat: no-repeat;
     background-size: cover;
+    transition: background-image 1s;
 }
 
 #view{
-    background: linear-gradient(to bottom, rgb(0, 255, 255),
+    background-image: linear-gradient(to bottom, rgb(0, 255, 255),
     rgb(0, 191, 197) 50%, 
     rgb(238, 238, 238) 100%);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     margin-top: 10px;
+    transition: background-image 0.5s ease-out, background-color 0.5s;
 }
 
 .panel-div{
@@ -86,6 +91,20 @@ div{
         font-size: 18px;
     }
 }
+
+.button{
+    box-sizing: border-box;
+    text-align: center;
+    padding: 3px;
+    border: 3px solid rgba(211, 211, 211, 0.315);
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: $button-color;
+    &:hover{
+        background-color: $div-selected-color;
+    }
+}
+    
 
 .middle{
     display: flex;
@@ -126,7 +145,7 @@ div{
     }
     div:first-of-type{
         flex-grow: unset;
-        height: 46.72px;
+        height: 58.67px;
     }
 }
 
@@ -140,18 +159,27 @@ div{
         justify-content: space-between;
         #gravity-select{
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            // flex-wrap: wrap;
             p{
-                width: 100%
+                text-align: center;
             }
-            div{
+            .button{
+                width: 90%;
                 margin: 3px;
+
+                &.active-option{
+                    border: 3px solid white;
+                    background-color: $div-selected-color;
+                }
             }
         }
     }
     &>div:first-of-type{
         flex-grow: unset;
-        height: 46.72px;
+        height: 58.67px;
     }
     #timescale-slider{
         width: 100%;
@@ -162,7 +190,11 @@ div{
         input{
             display: block;
         }
+        .gravity-option{
+    
+        }
     }
 }
+
 
 

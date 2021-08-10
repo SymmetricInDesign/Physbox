@@ -20,20 +20,29 @@ class Game {
         this.resetObjects = this.resetObjects.bind(this)
         this.setActiveGrav = this.setActiveGrav.bind(this)
         document.querySelector("#reset-button").addEventListener("click", this.resetObjects)
-        document.querySelectorAll(".gravity-option").addEventListener("click", this.setActiveGrav)
+        this.gravityOptions = document.querySelectorAll(".gravity-option")
+        this.gravityOptions.forEach(option => {
+            option.addEventListener("click", this.setActiveGrav)
+        })
     }
 
     setActiveGrav(e){
         this.activeGrav = e.target.textContent
+        this.gravityOptions.forEach(option=>{
+            option.classList.remove("active-option")
+        })
+        e.target.classList.add("active-option")
+        // console.log(this.activeGrav)
     }
     
     update(){
         this.framecount += 1
         if (this.framecount % 7 == 0){
-            this.gravitySelect = document.querySelector("input[name='gravity']:checked")
-            document.querySelector("#view").style.backgroundImage = canvasImgUrls[this.gravitySelect.value];
-            document.querySelector("#ground").style.backgroundImage = groundImgUrls[this.gravitySelect.value];
-            this.envProperties.gravitationalAcc = gravityValues[this.gravitySelect.value]
+            // const selectedGravityOption = document.querySelector("#gravity-select .active-option")
+            // console.log(canvasImgUrls)
+            document.querySelector("#view").style.backgroundImage = canvasImgUrls[this.activeGrav];
+            document.querySelector("#ground").style.backgroundImage = groundImgUrls[this.activeGrav];
+            this.envProperties.gravitationalAcc = gravityValues[this.activeGrav]
             // if (this.framecount % 20 == 0){
             //     this.t1=performance.now();
             // }
