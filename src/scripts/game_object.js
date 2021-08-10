@@ -69,9 +69,9 @@ class GameObject{
         }
     }
     updateYPos(deltaT, pixelScale){
-            if (Math.abs(this.velocity.y) > 90){
-                debugger
-            }
+            // if (Math.abs(this.velocity.y) > 90){
+            //     debugger
+            // }
             if ((this.path.position.y + this.path.bounds.height/2 < this.game.groundYPos || this.velocity.y < 0)){
                 this.path.position.y += (this.velocity.y * pixelScale * deltaT)
                 this.touchingGround = false
@@ -189,7 +189,7 @@ class GameObject{
         }else{
             forceY = -forceTot*Math.sin(theta)
         }
-        console.log({x: forceX, y: forceY})
+        // console.log({x: forceX, y: forceY})
         return {x: forceX, y: forceY}
     }
 
@@ -251,7 +251,7 @@ class GameObject{
                 || 
                 this.path.bounds.topRight.x > collisionSubject.path.bounds.topRight.x)
             ){
-                debugger
+                // debugger
                 this.path.position = new Point(
                     this.path.position.x + intersection.width+0.1,
                     this.path.position.y 
