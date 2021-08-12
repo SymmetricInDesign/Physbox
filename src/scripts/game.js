@@ -1,6 +1,7 @@
 import Display from "./display";
 import {gravityValues} from './props'
 import {groundImgUrls, canvasImgUrls} from './img_urls'
+import {runTutorial} from './tutorial'
 
 class Game {
     constructor(){  
@@ -20,6 +21,7 @@ class Game {
         this.resetObjects = this.resetObjects.bind(this)
         this.setActiveGrav = this.setActiveGrav.bind(this)
         document.querySelector("#reset-button").addEventListener("click", this.resetObjects)
+        document.querySelector("#tutorial-button").addEventListener("click", runTutorial)
         this.gravityOptions = document.querySelectorAll(".gravity-option")
         this.gravityOptions.forEach(option => {
             option.addEventListener("click", this.setActiveGrav)
@@ -64,12 +66,13 @@ class Game {
     }
 
     resetObjects(){
-        console.log(this.gameObjects)
+        // console.log(this.gameObjects)
         Object.values(this.gameObjects).forEach(object=>{
             object.path.remove()
         })
         this.gameObjects = {}
     }
+
 }
 
 export default Game

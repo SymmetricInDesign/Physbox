@@ -34,7 +34,7 @@ class Display {
                         parseFloat(heightInput.value)
                     ]
                 );
-                console.log(initXVelInput.value)
+                // console.log(initXVelInput.value)
                 let objectProps = {
                     fricCoeff: parseFloat(fricCoeffInput.value), 
                     mass: parseFloat(massInput.value), 
@@ -42,13 +42,13 @@ class Display {
                     initialVelocity: 
                         new Velocity(
                             parseFloat(initXVelInput.value), 
-                            parseFloat(initYVelInput.value)
+                            parseFloat(-initYVelInput.value)
                             )
                     }
                 path.fillColor = new Color(1, 0, 0.5, 0.93);
                 let gameObject = new GameObject(this.game, path, objectProps)
                 this.game.gameObjects[path.id] = gameObject
-                console.log(this.game.gameObjects)
+                // console.log(this.game.gameObjects)
             }
         }.bind(this)
     }
