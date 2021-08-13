@@ -12,7 +12,9 @@ export const runTutorial = function(){
     //properties sequence
     function propsSequence(){
         propsDiv.style.zIndex = 2;
+
         msg = "<p> Here you can assign object properties, which will affect how the object behaves according to the laws of physics. </p> <p> Higher masses will resist movement more, and higher charges will exert greater force on other charged objects. Positive charges will attract negative charges and repel positive charges. </p> <p> Initial velocities may be assigned to propel the object in a certain direction on creation. </p>"
+
         let propsMessage = new TutorialMessage(msg, "div", propsDiv, {x: "330px", y:"70px"})
         function propsLoop(){
             if (!next){
@@ -64,6 +66,7 @@ export const runTutorial = function(){
         }
         controlsLoop()
     }
+    
     //end tutorial
     function finalSequence(){
         msg = "<p>Click to place an object with the properties you selected at the cursor. Observe as it reacts to the environmental forces and its fellow objects.</p>"

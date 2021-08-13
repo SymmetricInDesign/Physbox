@@ -34,14 +34,11 @@ class Game {
             option.classList.remove("active-option")
         })
         e.target.classList.add("active-option")
-        // console.log(this.activeGrav)
     }
     
     update(){
         this.framecount += 1
         if (this.framecount % 7 == 0){
-            // const selectedGravityOption = document.querySelector("#gravity-select .active-option")
-            // console.log(canvasImgUrls)
             document.querySelector("#view").style.backgroundImage = canvasImgUrls[this.activeGrav];
             document.querySelector("#ground").style.backgroundImage = groundImgUrls[this.activeGrav];
             this.envProperties.gravitationalAcc = gravityValues[this.activeGrav]
@@ -66,7 +63,6 @@ class Game {
     }
 
     resetObjects(){
-        // console.log(this.gameObjects)
         Object.values(this.gameObjects).forEach(object=>{
             object.path.remove()
         })

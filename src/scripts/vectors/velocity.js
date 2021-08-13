@@ -5,7 +5,6 @@ class Velocity {
         this.y = y
     }
     add(acceleration, deltaT){
-        // console.log(deltaT * acceleration)
         this.x += acceleration.x * deltaT
         this.y += acceleration.y * deltaT
     }
