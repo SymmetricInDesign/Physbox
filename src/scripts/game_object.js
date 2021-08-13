@@ -1,12 +1,9 @@
 import { Point } from "paper/dist/paper-core"
 import Force from "./vectors/force"
-import Velocity from "./vectors/velocity"
 import Acceleration from "./vectors/acceleration"
-import Momentum from "./vectors/momentum"
 import { COULOMB_CONSTANT } from "./util"
 
 class GameObject{
-    // constructor(game, path, mass, initialVelocity=new Velocity(2,-10))
     constructor(game, path, objectProps)
     {
         const {mass, charge, initialVelocity, fricCoeff} = objectProps
@@ -19,10 +16,7 @@ class GameObject{
         this.assignForces()
         const totalForce = this.sumForces() 
         this.acceleration = new Acceleration(totalForce.x/mass, totalForce.y/mass)
-        // this.checkedForCollisions = false
-        // this.momentum = new Momentum(initialVelocity.x * mass, initialVelocity.y * mass)
-        this.touchingGround = false;
-        // console.log(this)
+        this.touchingGround = false
     }
 
     updatePos(deltaT, pixelScale){
@@ -37,7 +31,6 @@ class GameObject{
     }
 
     updateXPos(deltaT, pixelScale){
-        // console.log(this.path.bounds.bottomLeft)
         if (this.path.bounds.bottomLeft.x > 0 && this.path.bounds.bottomRight.x < this.game.width){
             if (Math.abs(this.velocity.x) > 0.01){
                 this.path.position.x += (this.velocity.x * pixelScale * deltaT)
@@ -69,9 +62,6 @@ class GameObject{
         }
     }
     updateYPos(deltaT, pixelScale){
-            // if (Math.abs(this.velocity.y) > 90){
-            //     debugger
-            // }
             if ((this.path.position.y + this.path.bounds.height/2 < this.game.groundYPos || this.velocity.y < 0)){
                 this.path.position.y += (this.velocity.y * pixelScale * deltaT)
                 this.touchingGround = false
@@ -95,8 +85,6 @@ class GameObject{
     }
 
     updateAcceleration(){
-        // const force = this.game.frameCount % 3 == 0 || !this.forceSum ? this.sumForces() : this.forceSum
-        // this.forceSum = force
         const force= this.sumForces()
         const newAcc = this.acceleration.update(force, this.mass)
         return newAcc
@@ -175,10 +163,10 @@ class GameObject{
         const dX = gameObject.path.position.x - this.path.position.x
         const rSquared = (dX)**2 + (dY)**2
         const theta = Math.atan(Math.abs(dY)/Math.abs(dX))
-        // console.log(theta)
         const forceTot = COULOMB_CONSTANT * this.charge * gameObject.charge / rSquared
         let forceX
         let forceY
+
         if (dX < 0){
             forceX = forceTot*Math.cos(theta)
         }else{
@@ -189,7 +177,6 @@ class GameObject{
         }else{
             forceY = -forceTot*Math.sin(theta)
         }
-        // console.log({x: forceX, y: forceY})
         return {x: forceX, y: forceY}
     }
 
@@ -251,7 +238,6 @@ class GameObject{
                 || 
                 this.path.bounds.topRight.x > collisionSubject.path.bounds.topRight.x)
             ){
-                // debugger
                 this.path.position = new Point(
                     this.path.position.x + intersection.width+0.1,
                     this.path.position.y 
@@ -289,6 +275,7 @@ class GameObject{
             return
         }
         if (Math.abs(initialVelocity[axis]) > 0.02){
+            //calculate post-collision velocities by elestic collision formula, with elasticity of 0.9.
             const totalMass = this.mass + gameObject.mass
             this.velocity[axis] = 0.9 * (
             (this.mass-gameObject.mass)/(totalMass)*initialVelocity[axis]

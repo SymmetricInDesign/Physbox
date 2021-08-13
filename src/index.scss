@@ -260,7 +260,7 @@ div{
     }
     #forces{
         display: flex;
-        justify-content: space-between;
+        // justify-content: flex-start;
         input{
             display: block;
         }
