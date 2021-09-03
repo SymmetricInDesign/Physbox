@@ -28,6 +28,7 @@ class Display {
         tool.onMouseDown = function(event) {
             let exists = Object.values(this.game.gameObjects).some(object=> object.path.contains(event.point))
             if (!exists){
+                console.log(event.point)
                 let path = new Path.Rectangle(event.point, 
                     [
                         parseFloat(widthInput.value), 
