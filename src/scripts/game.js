@@ -2,6 +2,7 @@ import Display from "./display";
 import {gravityValues} from './props'
 import {groundImgUrls, canvasImgUrls} from './img_urls'
 import {runTutorial} from './tutorial'
+import runOrbitDemo from './demos/orbit'
 
 class Game {
     constructor(){  
@@ -21,11 +22,21 @@ class Game {
         this.resetObjects = this.resetObjects.bind(this)
         this.setActiveGrav = this.setActiveGrav.bind(this)
         document.querySelector("#reset-button").addEventListener("click", this.resetObjects)
+        document.querySelector("#orbit-demo-button").addEventListener("click", ()=>runOrbitDemo(this))
         document.querySelector("#tutorial-button").addEventListener("click", runTutorial)
         this.gravityOptions = document.querySelectorAll(".gravity-option")
         this.gravityOptions.forEach(option => {
             option.addEventListener("click", this.setActiveGrav)
         })
+    }
+    
+    setActiveGravByName(name){
+        this.activeGrav = name
+        const selector = `#${name}-grav-button`
+        this.gravityOptions.forEach(option=>{
+            option.classList.remove("active-option")
+        })
+        document.querySelector(selector).classList.add("active-option")
     }
 
     setActiveGrav(e){
