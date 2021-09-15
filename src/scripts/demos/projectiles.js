@@ -29,8 +29,8 @@ function createLeftObject(game){
 
 function createRightObjects(game){
     let path1 = new Path.Rectangle(new Point(800,400), [10, 10]);
-    let path2 = new Path.Rectangle(new Point(820,420), [10, 10]);
-    let path3 = new Path.Rectangle(new Point(840,440), [10, 10]);
+    let path2 = new Path.Rectangle(new Point(900,420), [10, 10]);
+    let path3 = new Path.Rectangle(new Point(1000,440), [10, 10]);
     let object1Props = {
         fricCoeff: 0.3, 
         mass: 70, 

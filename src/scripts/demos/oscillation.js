@@ -15,10 +15,10 @@ export default function runOscillationDemo(game){
 }
 
 function createCenterObject(game){
-    let path = new Path.Rectangle(new Point(500,420), [20, 20]);
+    let path = new Path.Rectangle(new Point(130,420), [20, 20]);
     let objectProps = {
         fricCoeff: 0.3, 
-        mass: 100, 
+        mass: 50, 
         charge: 0.01,
         initialVelocity: new Velocity(0, 0)
     }
@@ -28,11 +28,11 @@ function createCenterObject(game){
 }
 
 function createLeftObject(game){
-    let path = new Path.Rectangle(new Point(400,400), [60, 60]);
+    let path = new Path.Rectangle(new Point(30,400), [20, 60]);
     let objectProps = {
         fricCoeff: 0.3, 
         mass: 100000, 
-        charge: 0.1,
+        charge: 0.05,
         initialVelocity: new Velocity(0, 0)
     }
     path.fillColor = new Color(1, 0, 0.5, 0.93);
@@ -40,7 +40,7 @@ function createLeftObject(game){
     game.gameObjects[path.id] = gameObject
 }
 function createRightObject(game){
-    let path = new Path.Rectangle(new Point(700,400), [60, 60]);
+    let path = new Path.Rectangle(new Point(1250,400), [20, 60]);
     let objectProps = {
         fricCoeff: 0.3, 
         mass: 100000, 
