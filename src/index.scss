@@ -155,6 +155,7 @@ div{
     border-radius: 2px;
     cursor: pointer;
     background-color: $button-color;
+    margin: 3px;
     &:hover{
         background-color: $div-selected-color;
     }
