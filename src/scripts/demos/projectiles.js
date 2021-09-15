@@ -32,19 +32,19 @@ function createRightObjects(game){
     let path2 = new Path.Rectangle(new Point(900,420), [10, 10]);
     let path3 = new Path.Rectangle(new Point(1000,440), [10, 10]);
     let object1Props = {
-        fricCoeff: 0.3, 
+        fricCoeff: 0.5, 
         mass: 70, 
         charge: 0,
         initialVelocity: new Velocity(-45, 0)
     }
     let object2Props = {
-        fricCoeff: 0.3, 
+        fricCoeff: 0.5, 
         mass: 70, 
         charge: 0,
         initialVelocity: new Velocity(-45, 0)
     }
     let object3Props = {
-        fricCoeff: 0.3, 
+        fricCoeff: 0.5, 
         mass: 70, 
         charge: 0,
         initialVelocity: new Velocity(-45, 0)

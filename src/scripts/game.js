@@ -5,6 +5,7 @@ import {runTutorial} from './tutorial'
 import runTwoOrbitDemo from './demos/two-orbit'
 import runProjectilesDemo from "./demos/projectiles";
 import runOscillationDemo from "./demos/oscillation";
+import runChaosDemo from "./demos/chaos";
 
 class Game {
     constructor(){  
@@ -27,6 +28,7 @@ class Game {
         document.querySelector("#two-orbit-demo-button").addEventListener("click", ()=>runTwoOrbitDemo(this))
         document.querySelector("#projectiles-demo-button").addEventListener("click", ()=>runProjectilesDemo(this))
         document.querySelector("#oscillation-demo-button").addEventListener("click", ()=>runOscillationDemo(this))
+        document.querySelector("#chaos-demo-button").addEventListener("click", ()=>runChaosDemo(this))
         document.querySelector("#tutorial-button").addEventListener("click", runTutorial)
         this.gravityOptions = document.querySelectorAll(".gravity-option")
         this.gravityOptions.forEach(option => {
