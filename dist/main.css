@@ -145,6 +145,7 @@ div {
   border-radius: 2px;
   cursor: pointer;
   background-color: rgba(101, 163, 175, 0.432);
+  margin: 3px;
 }
 .button:hover {
   background-color: #7a9ca3;

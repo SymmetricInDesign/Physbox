@@ -3,6 +3,8 @@ import {gravityValues} from './props'
 import {groundImgUrls, canvasImgUrls} from './img_urls'
 import {runTutorial} from './tutorial'
 import runTwoOrbitDemo from './demos/two-orbit'
+import runProjectilesDemo from "./demos/projectiles";
+import runOscillationDemo from "./demos/oscillation";
 
 class Game {
     constructor(){  
@@ -23,6 +25,8 @@ class Game {
         this.setActiveGrav = this.setActiveGrav.bind(this)
         document.querySelector("#reset-button").addEventListener("click", this.resetObjects)
         document.querySelector("#two-orbit-demo-button").addEventListener("click", ()=>runTwoOrbitDemo(this))
+        document.querySelector("#projectiles-demo-button").addEventListener("click", ()=>runProjectilesDemo(this))
+        document.querySelector("#oscillation-demo-button").addEventListener("click", ()=>runOscillationDemo(this))
         document.querySelector("#tutorial-button").addEventListener("click", runTutorial)
         this.gravityOptions = document.querySelectorAll(".gravity-option")
         this.gravityOptions.forEach(option => {

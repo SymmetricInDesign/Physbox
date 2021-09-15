@@ -7,6 +7,7 @@ export const runTutorial = function(){
     const propsDiv = document.querySelector("#object-properties")
     const forcesDiv = document.querySelector("#forces")
     const controlsDiv = document.querySelector("#controls")
+    const demosDiv = document.querySelector("#demos")
     let msg;
     
     //properties sequence
@@ -61,10 +62,27 @@ export const runTutorial = function(){
                 controlsDiv.style.zIndex = "unset"
                 controlsMessage.remove()
                 next=false
-                finalSequence()
+                demosSequence()
             }
         }
         controlsLoop()
+    }
+
+    function demosSequence(){
+        demosDiv.style.zIndex = 2;
+        msg = "<p> Here you can begin preset scenarios, clearing all objects beforehand. After those preconditions are created you can manipulate the environment and objects as normal.</p>"
+        let demosMessage = new TutorialMessage(msg, "div", demosDiv, {x: "-640px", y:"70px"})
+        function demosLoop(){
+            if (!next){
+                setTimeout(demosLoop, 100);
+            }else{
+                demosDiv.style.zIndex = "unset"
+                demosMessage.remove()
+                next=false
+                finalSequence()
+            }
+        }
+        demosLoop()
     }
     
     //end tutorial
