@@ -69,7 +69,9 @@ class Game {
             Object.values(this.gameObjects).forEach(object=>{
                 object.path.fillColor.hue += 0.2;
                 let deltaT = (currentTime - this.lastFrameTime) / 1000
-                if (deltaT < 0.5){
+                
+                if (deltaT < 0.5){     // Accounts for edge cases where deltaT is occasionally calculated to be unreasonable large - cause unknown. DeltaT should always be 
+                                       // well under 0.5 no matter the circumstance.
                     object.update(deltaT, this.framecount)
                 }
             })
