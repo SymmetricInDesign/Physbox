@@ -16,6 +16,7 @@ i{
 }
 ul{
     padding-left: 20px;
+    margin: 0;
 }
 
 
@@ -50,6 +51,7 @@ body{
     flex-direction: row;
     justify-content: center;
     margin: 0;
+    margin-top:5px;
 }
 
 div{
@@ -64,10 +66,12 @@ div{
     justify-content: center;
     background: $background-color;
     color: white;
-    h2{
-        padding-top: 10px;
-        margin: 10px;
-    }
+
+}
+
+h2{
+    padding-top: 4px;
+    margin: 0px;
 }
 
 #ground{
@@ -190,7 +194,7 @@ div{
         flex-direction: row;
         &>div{
             margin: 10px;
-            padding: 10px;
+            padding: 4px;
         }
         &>div:first-of-type{
             margin-left: 0;
@@ -234,7 +238,7 @@ div{
     }
     div:first-of-type{
         flex-grow: unset;
-        height: 58px;
+        height: 46px;
     }
 }
 hr{
@@ -280,7 +284,7 @@ hr{
     }
     &>div:first-of-type{
         flex-grow: unset;
-        height: 58px;
+        height: 46px;
         justify-content: center;
     }
     #timescale-slider{
