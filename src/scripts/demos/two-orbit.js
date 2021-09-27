@@ -15,7 +15,7 @@ export default function runOrbitDemo(game){
 }
 
 function createCenterObject(game){
-    let path = new Path.Rectangle(new Point(600,400), [50, 50]);
+    let path = new Path.Rectangle(new Point(500,300), [50, 50]);
     let objectProps = {
         fricCoeff: 0.3, 
         mass: 70000, 
@@ -28,7 +28,7 @@ function createCenterObject(game){
 }
 
 function createOrbitingObject1(game){
-    let path = new Path.Rectangle(new Point(430,400), [30, 30]);
+    let path = new Path.Rectangle(new Point(330,300), [30, 30]);
     let objectProps = {
         fricCoeff: 0.3, 
         mass: 22, 
@@ -41,7 +41,7 @@ function createOrbitingObject1(game){
 }
 
 function createOrbitingObject2(game){
-    let path = new Path.Rectangle(new Point(790,420), [30, 30]);
+    let path = new Path.Rectangle(new Point(690,320), [30, 30]);
     let objectProps = {
         fricCoeff: 0.3, 
         mass: 22, 
