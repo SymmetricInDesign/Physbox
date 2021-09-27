@@ -12,7 +12,10 @@ html{
     background: $background-color;
 }
 i{
-    font-size: 30px;
+    font-size: 25px;
+}
+ul{
+    padding-left: 20px;
 }
 
 
@@ -45,6 +48,7 @@ body{
 #app{
     display: flex;
     flex-direction: row;
+    justify-content: center;
     margin: 0;
 }
 
@@ -60,8 +64,9 @@ div{
     justify-content: center;
     background: $background-color;
     color: white;
-    h1{
+    h2{
         padding-top: 10px;
+        margin: 10px;
     }
 }
 
@@ -87,12 +92,13 @@ div{
 
 .panel-div{
     // z-index: 2;
-    padding: 20px 10px;
+    padding: 10px 7px;
+    box-sizing: border-box;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 800;
     border: 4px solid rgba(211, 211, 211, 0.315);
     background-color: $div-color;
@@ -103,8 +109,8 @@ div{
     min-width: 170px;
     input{
         width: 20%;
-        height: 25px;
-        font-size: 16px;
+        height: 18px;
+        font-size: 12px;
         font-weight: 700;
         border-radius: 5px;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -124,7 +130,7 @@ div{
         margin: 0;
         margin-bottom: 5px;
         font-weight: 700;
-        font-size: 18px;
+        font-size: 14px;
     }
     .tutorial-message{
         z-index: 2;
@@ -138,18 +144,18 @@ div{
         flex-direction: column;
         align-items: center;
         &>p{
-            font-size: 20px;
+            font-size: 16px;
             text-align: center;
             margin-bottom: 10px;
         }
         .button{
             width: 30%;
-            height: 45px;
+            height: 35px;
             border-radius: 5px;
             text-align: center;
             padding-top: 8px;
             font-weight: 900;
-            font-size: 22px;
+            font-size: 18px;
             margin-top: 10px;
         }
     }
@@ -158,7 +164,7 @@ div{
 .button{
     box-sizing: border-box;
     text-align: center;
-    padding: 3px;
+    padding: 1px 3px;
     border: 3px solid rgba(211, 211, 211, 0.315);
     border-radius: 2px;
     cursor: pointer;
@@ -176,7 +182,7 @@ div{
     margin: 10px;
     margin-top: 0;
     div{
-        flex-grow: 1;
+        // flex-grow: 1;
     }
     .tabs-container{
         width: 100%;
@@ -199,21 +205,22 @@ div{
     #instructions{
         flex-grow: unset;
         li{
-            font-size: 18px;
+            font-size: 14px;
             margin: 6px 0px;
         }
         .button{
             width: auto;
-            height: 45px;
+            height: 35px;
             border-radius: 5px;
             text-align: center;
-            padding-top: 8px;
+            padding-top: 6px;
             font-weight: 900;
-            font-size: 22px;
+            font-size: 18px;
             margin-top: 10px;
         }
     }
-    flex-grow: 1;
+    // flex-grow: 1;
+    max-width: 250px;
     display: flex;
     flex-direction: column;
     &>div{}
@@ -227,7 +234,7 @@ div{
     }
     div:first-of-type{
         flex-grow: unset;
-        height: 64.67px;
+        height: 58px;
     }
 }
 hr{
@@ -243,7 +250,7 @@ hr{
 }
 
 .settings{
-    flex-grow: 1;
+    // flex-grow: 1;
     display: flex;
     flex-direction: column;
 
@@ -273,7 +280,7 @@ hr{
     }
     &>div:first-of-type{
         flex-grow: unset;
-        height: 64.67px;
+        height: 58px;
         justify-content: center;
     }
     #timescale-slider{
@@ -292,7 +299,7 @@ hr{
 }
 
 a{
-    font-size: 25px;
+    font-size: 20px;
     // margin-left: 10px;
     display: block;
     text-decoration: none;
@@ -308,7 +315,7 @@ a{
     justify-content: space-between;
     width: 100%;
     a{
-        font-size: 25px;
+        font-size: 20px;
         display: block;
         text-decoration: none;
         color: white;
