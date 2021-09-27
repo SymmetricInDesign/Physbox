@@ -16,7 +16,7 @@ export const runTutorial = function(){
 
         msg = "<p> Here you can assign object properties, which will affect how the object behaves according to the laws of physics. </p> <p> Higher masses will resist movement more, and higher charges will exert greater force on other charged objects. Positive charges will attract negative charges and repel positive charges. </p> <p> Initial velocities may be assigned to propel the object in a certain direction on creation. </p>"
 
-        let propsMessage = new TutorialMessage(msg, "div", propsDiv, {x: "330px", y:"70px"})
+        let propsMessage = new TutorialMessage(msg, "div", propsDiv, {x: "255px", y:"20px"})
         function propsLoop(){
             if (!next){
                 setTimeout(propsLoop, 100);
@@ -54,7 +54,7 @@ export const runTutorial = function(){
     function controlsSequence(){
         controlsDiv.style.zIndex = 2;
         msg = "<p> Here you can clear the board, removing all objects.</p>"
-        let controlsMessage = new TutorialMessage(msg, "div", controlsDiv, {x: "-10px", y:"70px"})
+        let controlsMessage = new TutorialMessage(msg, "div", controlsDiv, {x: "0px", y:"70px"})
         function controlsLoop(){
             if (!next){
                 setTimeout(controlsLoop, 100);
@@ -88,8 +88,8 @@ export const runTutorial = function(){
     //end tutorial
     function finalSequence(){
         msg = "<p>Click to place an object with the properties you selected at the cursor. Observe as it reacts to the environmental forces and its fellow objects.</p>"
-        let finalMessage = new TutorialMessage(msg, "div", controlsDiv, {x: "150px", y:"400px"})
-        finalMessage.el.style.width = "1000px"
+        let finalMessage = new TutorialMessage(msg, "div", controlsDiv, {x: "170px", y:"300px"})
+        finalMessage.el.style.width = "700px"
         finalMessage.nextButton.textContent = "Begin!"
         function finalLoop(){
             if (!next){
