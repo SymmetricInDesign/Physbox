@@ -40,7 +40,7 @@ function createLeftObject(game){
     game.gameObjects[path.id] = gameObject
 }
 function createRightObject(game){
-    let path = new Path.Rectangle(new Point(1050,400), [20, 60]);
+    let path = new Path.Rectangle(new Point(1000,400), [20, 60]);
     let objectProps = {
         fricCoeff: 0.3, 
         mass: 100000, 

@@ -14,8 +14,8 @@ class Game {
         this.lastFrameTime = null
         this.display = new Display(this)
         this.display.view.onFrame = this.update.bind(this)
-        this.groundYPos = 600
-        this.width = 1100
+        this.groundYPos = 550
+        this.width = 1050
         this.envProperties = {
             gravitationalAcc: 9.807, 
             groundFriction:{static: 0.4, kinetic: 0.3}
