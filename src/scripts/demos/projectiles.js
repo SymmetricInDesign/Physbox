@@ -10,7 +10,6 @@ export default function runProjectilesDemo(game){
     setTimeout(()=>{
         createLeftObject(game)
         createRightObjects(game)
-        // createOrbitingObject2(game)
     }, 150) 
 }
 

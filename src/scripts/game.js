@@ -59,9 +59,6 @@ class Game {
             document.querySelector("#view").style.backgroundImage = canvasImgUrls[this.activeGrav];
             document.querySelector("#ground").style.backgroundImage = groundImgUrls[this.activeGrav];
             this.envProperties.gravitationalAcc = gravityValues[this.activeGrav]
-            // if (this.framecount % 20 == 0){
-            //     this.t1=performance.now();
-            // }
         }
         if (this.lastFrameTime){
             // Calculates time elapsed since last frame for use in calculations

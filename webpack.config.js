@@ -35,13 +35,6 @@ const config = {
           outputPath: './img/',
           name: '[name].[ext]?[hash]'
       },
-      // {
-      //   test: /\.(woff|woff2|eot|ttf|otf)$/,
-      //   loader: "file-loader",
-      //   options: {
-      //     outputPath: "../fonts",
-      //   }
-      // }
       },
     ],
   },
