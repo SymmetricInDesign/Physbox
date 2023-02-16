@@ -81,7 +81,6 @@ class GameObject{
 
     updateVelocity(deltaT){
         this.velocity.add(this.acceleration, deltaT)
-        // this.momentum = new Momentum(this.velocity.x * this.mass, this.velocity.y * this.mass)
     }
 
     updateAcceleration(){

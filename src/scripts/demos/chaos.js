@@ -47,12 +47,4 @@ function createObjects(game){
     createObject(900, 550, -10, -13, 0.01, 200, game)
     createObject(950, 550, -10, -13, 0, 200, game)
     createObject(1000, 550, -10, -13, 0, 200, game)
-
-    // createObject(1050, 770, -10, -13, 0, 200, game)
-    // createObject(1050, 770, -10, -13, 0, 200, game)
-    // createObject(1050, 770, -10, -13, 0, 200, game)
-    // createObject(1050, 770, -10, -13, 0, 200, game)
-    // createObject(1050, 770, -10, -13, 0, 200, game)
-    // createObject(1050, 770, -10, -13, 0, 200, game)
-    // createObject(1050, 770, -10, -13, 0, 200, game)
 }
