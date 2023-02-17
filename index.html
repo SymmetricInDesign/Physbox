@@ -1,128 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<meta
+			name="description"
+			content="An interactive physics sandbox built with vanilla Javascript and the fundamentals of Newtonian mechanics."
+		/>
+		<meta name="title" property="og:title" content="PhysBox" />
+		<meta property="og:type" content="_" />
+		<meta
+			name="image"
+			property="og:image"
+			content="https://github.com/SymmetricInDesign/Physbox/blob/main/physbox-screenshot.jpg?raw=true"
+		/>
+		<meta
+			name="description"
+			property="og:description"
+			content="An interactive physics sandbox built with vanilla Javascript and the fundamentals of Newtonian mechanics."
+		/>
+		<meta name="author" content="Donnie Wombough" />
+		<link rel="stylesheet" href="./dist/main.css" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<script src="./dist/main.js"></script>
+		<title>PhysBox</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+		/>
+	</head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="description" content="An interactive physics sandbox built with vanilla Javascript and the fundamentals of Newtonian mechanics." />
-    <meta name="title" property="og:title" content="PhysBox" />
-    <meta property="og:type" content="_" />
-    <meta name="image" property="og:image" content="https://github.com/SymmetricInDesign/Physbox/blob/main/physbox-screenshot.jpg?raw=true" />
-    <meta name="description" property="og:description" content="An interactive physics sandbox built with vanilla Javascript and the fundamentals of Newtonian mechanics." />
-    <meta name="author" content="Donnie Wombough" />
-    <link rel="stylesheet" href="./dist/main.css" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <script src="./dist/main.js"></script>
-    <title>PhysBox</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+	<body>
+		<div id="header"></div>
 
-<body>
+		<div id="app">
+			<div class="object-panel">
+				<div class="panel-div"></div>
+				<div class="panel-div" id="instructions">
+					<p>Instructions</p>
+					<hr />
+					<ul>
+						<li>Assign Properties to an object</li>
+						<li>
+							Click to create an object with the given properties at the cursor
+						</li>
+						<li>Set Environmental variables to change how objects behave</li>
+					</ul>
+					<hr />
+					<div class="button" id="tutorial-button">Tutorial</div>
+				</div>
+				<div class="panel-div" id="object-properties">
+					<p>Object Properties</p>
+					<hr />
+					<div class="prop-input-div">
+						<label for="obj-init-y-vel">Y Velocity (m/s): </label>
+						<input
+							id="obj-init-y-vel"
+							type="number"
+							placeholder="Initial Y Velocity"
+							value="10"
+						/>
+					</div>
+					<div class="prop-input-div">
+						<label for="obj-init-x-vel">X Velocity (m/s): </label>
+						<input
+							id="obj-init-x-vel"
+							type="number"
+							placeholder="Initial X Velocity"
+							value="10"
+						/>
+					</div>
+					<div class="prop-input-div">
+						<label for="obj-mass">Mass (kg): </label>
+						<input id="obj-mass" type="number" placeholder="Mass" value="200" />
+					</div>
+					<div class="prop-input-div">
+						<label for="obj-fric-coeff">Friction Coeff.: </label>
+						<input
+							id="obj-fric-coeff"
+							type="number"
+							placeholder="Frictional Coefficient"
+							value="0.3"
+							min="0"
+							max="1"
+							step="0.05"
+						/>
+					</div>
+					<div class="prop-input-div">
+						<label for="obj-width">Width (dm): </label>
+						<input
+							id="obj-width"
+							type="number"
+							placeholder="Width"
+							value="30"
+						/>
+					</div>
+					<div class="prop-input-div">
+						<label for="obj-height">Height(dm): </label>
+						<input
+							id="obj-height"
+							type="number"
+							placeholder="Height"
+							value="30"
+						/>
+					</div>
+					<div class="prop-input-div">
+						<label for="obj-charge">Charge (C): </label>
+						<input
+							id="obj-charge"
+							type="number"
+							placeholder="Charge"
+							value="0"
+							min="-1"
+							max="1"
+							step="0.01"
+						/>
+					</div>
+				</div>
+			</div>
 
-    <div id="header">
-    </div>
+			<div class="middle">
+				<div class="tabs-container">
+					<div class="panel-div" id="controls">
+						<div class="button" id="reset-button">Reset</div>
+					</div>
+					<div class="panel-div"><h2>PhysBox</h2></div>
+					<div class="panel-div"></div>
+				</div>
 
-    <div id="app">
-        <div class="object-panel">
-            
-            <div class="panel-div"></div>
-            <div class="panel-div" id="instructions">
-                <p>Instructions</p>
-                <hr>
-                <ul>
-                    <li>Assign Properties to an object</li>
-                    <li>Click to create an object with the given properties at the cursor</li>
-                    <li>Set Environmental variables to change how objects behave</li>
-                </ul>
-                <hr>
-                <div class="button" id="tutorial-button">Tutorial</div>
-            </div>
-            <div class="panel-div" id="object-properties">
-                <p>Object Properties</p>
-                <hr>
-                <div class="prop-input-div">
-                    <label for="obj-init-y-vel">Y Velocity (m/s): </label>
-                    <input id="obj-init-y-vel" type="number" placeholder="Initial Y Velocity" value=10>
-                </div>
-                <div class="prop-input-div">
-                    <label for="obj-init-x-vel">X Velocity (m/s): </label>
-                    <input id="obj-init-x-vel" type="number" placeholder="Initial X Velocity" value=10>
-                </div>
-                <div class="prop-input-div">
-                    <label for="obj-mass">Mass (kg): </label>
-                    <input id="obj-mass" type="number" placeholder="Mass" value=200>
-                </div>
-                <div class="prop-input-div">
-                    <label for="obj-fric-coeff">Friction Coeff.: </label>
-                    <input id="obj-fric-coeff" type="number" placeholder="Frictional Coefficient" value=0.3 min=0 max=1 step=0.05>
-                </div>
-                <div class="prop-input-div">
-                    <label for="obj-width">Width (dm): </label>
-                    <input id="obj-width" type="number" placeholder="Width" value=30>
-                </div>
-                <div class="prop-input-div">
-                    <label for="obj-height">Height(dm): </label>
-                    <input id="obj-height" type="number" placeholder="Height" value=30>
-                </div>
-                <div class="prop-input-div">
-                    <label for="obj-charge">Charge (C): </label>
-                    <input id="obj-charge" type="number" placeholder="Charge" value=0 min=-1 max=1 step=0.01>
-                </div>
-            </div>
-        </div>
+				<canvas id="view" height="550" width="1050"></canvas>
 
-        <div class="middle">
+				<div id="ground"></div>
+			</div>
 
-            <div class="tabs-container">
-                <div class="panel-div" id="controls"><div class="button" id="reset-button">Reset</div></div>
-                <div class="panel-div"><h2>PhysBox</h2></div>
-                <div class="panel-div"></div>
-            </div>
-
-            <canvas id="view" height=550 width=1050></canvas>
-
-            <div id="ground"></div>
-
-        </div>
-
-        <div class="settings">
-            <div class="panel-div">
-                <div class="profile-links-container">
-                        
-                    <a href="https://github.com/SymmetricInDesign" target='_blank' rel="noreferrer"><i class="fa fa-github" aria-hidden="true"></i></a>
-                    <a href='https://www.linkedin.com/in/donnie-wombough-911671218/' target='_blank' rel="noreferrer"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                    <a href="https://angel.co/u/donnie-wombough" target='_blank' rel="noreferrer"><i class="fa fa-angellist" aria-hidden="true"></i></a>
-                    <a href="http://dwombough.me" target='_blank' rel="noreferrer"><i class="fa fa-user" aria-hidden="true"></i></a>
-                </div>
-            </div>
-            <div class="panel-div" id="demos">
-                <p>Demos</p>
-                <hr>
-                <div class="button" id="two-orbit-demo-button">Two-Orbit</div>
-                <div class="button" id="projectiles-demo-button">Projectiles</div>
-                <div class="button" id="oscillation-demo-button">Oscillation</div>
-                <div class="button" id="chaos-demo-button">Chaos</div>
-
-            </div>
-            <div class="panel-div" id="forces">
-                <p>Forces</p>
-                <hr>
-                <div id="gravity-select">
-                    <p>Gravity</p>
-                    <div class="button gravity-option active-option" id="Earth-grav-button">Earth</div>
-                    <div class="button gravity-option" id="Moon-grav-button">Moon</div>
-                    <div class="button gravity-option" id="Jupiter-grav-button">Jupiter</div>
-                    <div class="button gravity-option" id="Space-grav-button">Space</div>
-                </div>
-                <hr>
-
-            </div>
-
-        </div>
-    </div>
-    
-</body>
-
-
+			<div class="settings">
+				<div class="panel-div">
+					<div class="profile-links-container">
+						<a
+							href="https://github.com/SymmetricInDesign"
+							target="_blank"
+							rel="noreferrer"
+							><i class="fa fa-github" aria-hidden="true"></i
+						></a>
+						<a
+							href="https://www.linkedin.com/in/donnie-wombough-911671218/"
+							target="_blank"
+							rel="noreferrer"
+							><i class="fa fa-linkedin" aria-hidden="true"></i
+						></a>
+						<a
+							href="https://angel.co/u/donnie-wombough"
+							target="_blank"
+							rel="noreferrer"
+							><i class="fa fa-angellist" aria-hidden="true"></i
+						></a>
+						<a href="http://dwombough.me" target="_blank" rel="noreferrer"
+							><i class="fa fa-user" aria-hidden="true"></i
+						></a>
+					</div>
+				</div>
+				<div class="panel-div" id="demos">
+					<p>Demos</p>
+					<hr />
+					<div class="button" id="two-orbit-demo-button">Two-Orbit</div>
+					<div class="button" id="projectiles-demo-button">Projectiles</div>
+					<div class="button" id="oscillation-demo-button">Oscillation</div>
+					<div class="button" id="chaos-demo-button">Chaos</div>
+				</div>
+				<div class="panel-div" id="forces">
+					<p>Forces</p>
+					<hr />
+					<div id="gravity-select">
+						<p>Gravity</p>
+						<div
+							class="button gravity-option active-option"
+							id="Earth-grav-button"
+						>
+							Earth
+						</div>
+						<div class="button gravity-option" id="Moon-grav-button">Moon</div>
+						<div class="button gravity-option" id="Jupiter-grav-button">
+							Jupiter
+						</div>
+						<div class="button gravity-option" id="Space-grav-button">
+							Space
+						</div>
+					</div>
+					<hr />
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
